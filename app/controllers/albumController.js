@@ -1,3 +1,5 @@
+var AlbumFactory = require('../model/album/AlbumFactory');
+
 module.exports = function(req, res) {
 
     images = [
@@ -7,10 +9,16 @@ module.exports = function(req, res) {
 
 	res.render('index.ejs', {'images' : images});
 
-	var collection = req.db.collection('albumcollection');
-    collection.find({},{},function(e,docs){
-        //console.log(docs);
-    });
+    var albumFactory = new AlbumFactory(req.db);
+	var album = albumFactory.get(req.param('uuid')).then(function(album) {
+		if (album && album.files) {
+			console.log(album.files);
+		} else {
+			console.log('FUCK');
+		}
+		res.render('index.ejs', {});
+
+	}).catch(console.log);
 }
 
 

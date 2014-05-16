@@ -6,7 +6,7 @@ module.exports = function(db) {
 
 }
 
-module.exports.prototype.createAlbum = function() {
+module.exports.prototype.create = function() {
 
 	return new Promise(function(resolve, reject) {
 
@@ -24,16 +24,16 @@ module.exports.prototype.createAlbum = function() {
 
 }
 
-module.exports.prototype.getAlbum = function(_id) {
+module.exports.prototype.get = function(_id) {
 
 	return new Promise(function(resolve, reject) {
+		console.log(_id);
+		this.db.collection('albumcollection').find({_id: new ObjectId(_id)}).toArray(function(err, result) {
 
-		this.db.collection('albumcollection').find({_id: _id}, function(err, result) {
-
-			if (err) {
+			if (err || result.length != 1) {
 				return reject(err);
 			}
-
+			console.log(result[0]);
 			var album = result[0];
 			resolve(album); 
 		});
