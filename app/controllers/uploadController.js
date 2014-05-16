@@ -27,7 +27,7 @@ module.exports = function(req, res) {
 
             //save into Mongo
             var albumFactory = new AlbumFactory(req.db);
-            albumFactory.addFile(req.param('uuid'), {path:''}).then(function() {
+            albumFactory.addFile(req.param('uuid'), {path:'/uploads/' + file.originalFilename}).then(function() {
             	console.log('YOUPI');
             }).catch(console.log);
 

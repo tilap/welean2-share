@@ -41,9 +41,9 @@
             <h1>Drag your files where you want</h1>
         </div>
         <div id="mygallery">
-            <% for(var i=0; i<images.length; i++) { %>
-                <a href="/uploads/<%= images[i] %>">
-                    <img alt="/uploads/<%= images[i] %>" src="/uploads/<%= images[i] %>" />
+            <% for(var i=0; i < files.length; i++) { %>
+                <a href="<%= files[i].path %>">
+                    <img alt="<%= files[i].path %>" src="<%= files[i].path %>" />
                 </a>
             <% } %>
         </div>
