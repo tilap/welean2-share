@@ -22,6 +22,7 @@ MongoClient.connect("mongodb://localhost:27017/share", function(err, dbMongo) {
 * APP
 ************/
 var app = express();
+
 app.set('views', __dirname + '/views');
 app.use(express.static('public'));
 app.use(cookieParser());
@@ -39,7 +40,10 @@ app.get('/:uuid/', require('./controllers/albumController.js'));
 app.get('/', require('./controllers/indexController.js'));
 app.post('/:uuid/upload/', require('./controllers/uploadController.js'));
 
+
 /***********
 * GOOOO
-************/ 
-app.listen(1337);
+************/
+var server = app.listen(config.port, function() {
+    log.success('We are on ! Listening on port ' + server.address().port);
+});
