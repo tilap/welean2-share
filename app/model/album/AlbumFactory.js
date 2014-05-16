@@ -1,4 +1,4 @@
-var ObjectId = require('mongoDb').ObjectID;
+var ObjectId = require('mongodb').ObjectID;
 
 module.exports = function(db) {
 
