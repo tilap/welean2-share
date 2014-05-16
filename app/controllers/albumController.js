@@ -1,10 +1,17 @@
-module.exports = function(req, res) {
-	res.render('index.ejs', {});
+var AlbumFactory = require('../model/album/AlbumFactory');
 
-	var collection = req.db.collection('albumcollection');
-    collection.find({},{},function(e,docs){
-        //console.log(docs);
-    });
+module.exports = function(req, res) {
+
+    var albumFactory = new AlbumFactory(req.db);
+	var album = albumFactory.get(req.param('uuid')).then(function(album) {
+		if (album && album.files) {
+			console.log(album.files);
+		} else {
+			console.log('FUCK');
+		}
+		res.render('index.ejs', {});
+
+	}).catch(console.log);
 }
 
 
