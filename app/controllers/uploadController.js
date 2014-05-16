@@ -1,6 +1,5 @@
 
 var multiparty = require('multiparty');
-var fs = require('fs');
 var AlbumFactory = require('../model/album/AlbumFactory');
 
 module.exports = function(req, res) {
@@ -18,16 +17,13 @@ module.exports = function(req, res) {
         } else {
             
             // Manage file
-            var file = files.file[0];
+            var fileUploaded = files.file[0];
 
-            var moveTo = 'public/uploads/' + file.originalFilename;
-            fs.rename(file.path, moveTo, function (err) {
-                console.log('moved complete');
-            });
+            var file = {path: fileUploaded.path, name: fileUploaded.originalFilename};
 
             //save into Mongo
             var albumFactory = new AlbumFactory(req.db);
-            albumFactory.addFile(req.param('uuid'), {path:'/uploads/' + file.originalFilename}).then(function() {
+            albumFactory.addFile(req.param('uuid'), file).then(function() {
             	console.log('YOUPI');
             }).catch(console.log);
 

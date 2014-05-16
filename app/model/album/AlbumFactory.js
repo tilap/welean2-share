@@ -44,19 +44,39 @@ module.exports.prototype.get = function(_id) {
 
 module.exports.prototype.addFile = function (_id, file) {
 
-	console.log(_id);
-	console.log('file'+file);
 
 	return new Promise(function(resolve, reject) {
-
-	    this.db.collection('albumcollection').update({_id: new ObjectId(_id)}, {$push: {files:file}}, function(err, result) {
+    	
+	    this.treatFile(file).then(function() {
+	    	this.db.collection('albumcollection').update({_id: new ObjectId(_id)}, {$push: {files:file}}, function(err, result) {
 				if (err) {
 					return reject(err);
 				}
 
 				var album = result[0];
 				resolve(); 
-	    }); 
+	    	}); 	
+	    }).catch(console.log);
+
+	}.bind(this))
+
+}
+
+module.exports.prototype.treatFile = function (file) {
+
+	return new Promise(function(resolve, reject) {
+
+		var moveTo = 'public/uploads/' + file.name;
+	    fs.rename(file.path, moveTo, function (err) {
+	        console.log('moved complete');
+
+	        if (err) {
+	        	reject('problem with move');
+	        } else {
+	        	file.path = 'uploads/' + file.name;
+	        }
+
+	    });
 
 	}.bind(this))
 
