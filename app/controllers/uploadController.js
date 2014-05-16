@@ -1,6 +1,7 @@
 
 var multiparty = require('multiparty');
 var AlbumFactory = require('../model/album/AlbumFactory');
+var log = require('../utils/psrConsole');
 
 module.exports = function(req, res) {
 
@@ -12,7 +13,7 @@ module.exports = function(req, res) {
         if(err || !files.file || !files.file[0]){
 
 			//@TODO manage error            
-            console.log('upload error');
+            log.error('upload error', file);
 
         } else {
             
@@ -24,13 +25,12 @@ module.exports = function(req, res) {
             //save into Mongo
             var albumFactory = new AlbumFactory(req.db);
             albumFactory.addFile(req.param('uuid'), file).then(function() {
-            	console.log('YOUPI');
-            }).catch(console.log);
+            	log.success('file added :)');
+            }).catch(log.error);
 
         }
     });
-
-    console.log('Retour ok 200');
+    
     res.writeHead(200, {'Content-Type': 'text/plain'});
     res.end();
 

@@ -1,19 +1,18 @@
 var AlbumFactory = require('../model/album/AlbumFactory');
+var log = require('../utils/psrConsole');
 
 module.exports = function(req, res) {
 
     var albumFactory = new AlbumFactory(req.db);
 	var album = albumFactory.get(req.param('uuid')).then(function(album) {
 		if (album && album.files) {
-			console.log(album.files);
             files = album.files;
 		} else {
-			console.log('FUCK');
             files = [];
 		}
-		res.render('index.ejs', {'files' : files});
+		res.render('index.ejs', {'files' : files, 'IMAGE_PATH': albumFactory.PUBLIC_PATH});
 
-	}).catch(console.log);
+	}).catch(log.error);
 }
 
 

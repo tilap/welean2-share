@@ -3,6 +3,7 @@ var cookieParser = require('cookie-parser');
 var mongo = require('mongodb');
 var MongoClient = require('mongodb').MongoClient;
 require('springbokjs-shim/es6');
+var log = require('./utils/psrConsole');
 
 /***********
 * DB
@@ -10,7 +11,7 @@ require('springbokjs-shim/es6');
 var db = null;
 MongoClient.connect("mongodb://localhost:27017/share", function(err, dbMongo) {
   if(!err) {
-    console.log("We are connected");
+    log.success("We are connected");
     db = dbMongo;
   }
 });
