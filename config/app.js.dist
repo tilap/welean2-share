@@ -1,4 +1,4 @@
-exports.config = {
+module.exports = {
     port : 1337,
     logging : {
         level : 'trace'
