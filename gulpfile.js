@@ -1,5 +1,7 @@
 var gulp = require('gulp');
 
 gulp.task('watch', function() {
-	gulp.src('src/**/*.js');
+	gulp.watch('src/**/*.js').on('change', function(file) {
+		node('index.js');
+	})
 });
