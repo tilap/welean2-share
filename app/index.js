@@ -32,9 +32,9 @@ app.use(function(req,res,next){
 /***********
 * ROUTES
 ************/
-app.get('/:uuid', require('./controllers/albumController.js'));
+app.get('/:uuid/', require('./controllers/albumController.js'));
 app.get('/', require('./controllers/indexController.js'));
-app.post('/upload', require('./controllers/uploadController.js'));
+app.post('/:uuid/upload/', require('./controllers/uploadController.js'));
     
  
 /***********
