@@ -1,8 +1,11 @@
 var express = require('express');
+var cookieParser = require('cookie-parser');
 var app = express();
 app.set('views', __dirname + '/views');
-app.get('/', function(req, res) {
-	res.render('index.ejs', {});
-});
+
+app.use(cookieParser());
+
+app.get('/', require('./controllers/indexController.js'));
+
 
 app.listen(1337);

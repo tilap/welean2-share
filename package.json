@@ -4,8 +4,10 @@
   "description": "welean2-share ============= What if we can share with friends without click pictures, videos... Yes no click, just a drag and drop! No sign in! Even easier than wetransfer!",
   "main": "index.js",
   "dependencies": {
+    "cookie-parser": "^1.1.0",
     "ejs": "^1.0.0",
-    "express": "^4.2.0"
+    "express": "^4.2.0",
+    "hashids": "^0.3.3"
   },
   "devDependencies": {
     "gulp": "^3.6.2",
