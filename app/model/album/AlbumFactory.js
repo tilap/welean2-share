@@ -37,7 +37,7 @@ module.exports.prototype = {
 	            log.info('base_directory', base_directory);
 
 	            fs.mkdirSync(base_directory);
-	            fs.mkdirSync(base_directory + '/min');
+	            fs.mkdirSync(base_directory + '/miniature');
 	            fs.mkdirSync(base_directory + '/slideshow');
 	            fs.mkdirSync(base_directory + '/origin');
 
@@ -69,8 +69,8 @@ module.exports.prototype = {
 
 		return new Promise(function(resolve, reject) {
 	    	
-		    this._treatFile(file, _id).then(function() {
-		    	log.info('treatFile finnished', _id);
+		    this._treatFile(file, _id).then(function(file) {
+		    	log.info('treatFile finnished', file);
 		    	this.db.collection('albumcollection').update({_id: new ObjectId(_id)}, {$push: {files:file}}, function(err, result) {
 					if (err) {
 						log.error('add file failed', err);
@@ -89,7 +89,15 @@ module.exports.prototype = {
 
 		return new Promise(function(resolve, reject) {
 
-			var moveTo = this.UPLOAD_DIR + '/' + albumId + '/' + this.ORIGIN + '/' + file.name;
+			// Create uuid
+			var uuidGenerator = require('node-uuid');
+			var uuid = uuidGenerator.v4();
+
+			// Get extension
+			var path = require('path')
+			var extension = path.extname(file.name);
+
+			var moveTo = this.UPLOAD_DIR + '/' + albumId + '/' + this.ORIGIN + '/' + uuid + extension;
 			log.info(moveTo);
 		    fs.rename(file.path, moveTo, function (err) {
 
@@ -100,10 +108,44 @@ module.exports.prototype = {
 		        	return;
 		        } 
 
-		        // Put the final path into the file
-	        	file.path = '/' + this.PUBLIC_PATH + '/' + albumId + '/' + this.ORIGIN + "/" + file.name;
+		        // Put the final paths into the file
+		        file.paths = {};
+	        	file.paths.origin = '/' + this.PUBLIC_PATH + '/' + albumId + '/' + this.ORIGIN + "/"  + uuid + extension;
+	        	file.paths.miniature = '/' + this.PUBLIC_PATH + '/' + albumId + '/' + this.MINIATURE + "/"  + uuid + extension;
+	        	file.paths.slideshow = '/' + this.PUBLIC_PATH + '/' + albumId + '/' + this.SLIDESHOW + "/"  + uuid + extension;
+				
+				log.info('file', file);
+	        	delete file.path;
 
-	        	resolve();
+	        	// compress image
+	        	var gm = require("gm").subClass({ imageMagick: true });
+
+	        	// miniature
+	        	gm(this.UPLOAD_DIR + '/' + albumId + '/' + this.ORIGIN + '/'  + uuid + extension)
+	        	.autoOrient() 
+	        	.resize(null, 300 + '>')
+	        	.gravity('Center')
+	        	.extent(null, 300)
+	        	.write(this.UPLOAD_DIR + '/' + albumId + '/' + this.MINIATURE + '/'  + uuid + extension, function(err) {
+	        		if (err) {
+		        		reject(err);
+		        		log.error('error for mini', err);
+	        		}
+	        	}.bind(this));
+
+	        	// slideshow
+	        	gm(this.UPLOAD_DIR + '/' + albumId + '/' + this.ORIGIN + '/'  + uuid + extension)
+	        	.autoOrient() 
+	        	.resize(null, 1000 + '>')
+	        	.write(this.UPLOAD_DIR + '/' + albumId + '/' + this.SLIDESHOW + '/' + uuid + extension, function(err) {
+	        		if (err) {
+		        		reject(err);
+		        		log.error('error for slideshow', err);
+	        		}
+	        	}.bind(this));
+				
+				log.info('file', file);
+	        	resolve(file);
 
 		    }.bind(this));
 

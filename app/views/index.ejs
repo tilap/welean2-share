@@ -42,8 +42,8 @@
         </div>
         <div id="mygallery">
             <% for(var i=0; i < files.length; i++) { %>
-                <a href="<%= files[i].path %>">
-                    <img alt="<%= files[i].path %>" src="<%= files[i].path %>" />
+                <a href="<%= files[i].paths.miniature %>">
+                    <img alt="<%= files[i].name %>" src="<%= files[i].paths.miniature %>" />
                 </a>
             <% } %>
         </div>
