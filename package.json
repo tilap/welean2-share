@@ -11,7 +11,8 @@
     "hashids": "^0.3.3",
     "mongodb": "^1.4.4",
     "monk": "^0.9.0",
-    "springbokjs-shim": "^0.1.15"
+    "springbokjs-shim": "^0.1.15",
+    "multiparty": "^3.2.6"
   },
   "devDependencies": {
     "gulp": "^3.6.2",

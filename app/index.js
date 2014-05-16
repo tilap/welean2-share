@@ -1,4 +1,5 @@
 var express = require('express');
+
 var app = express();
 
 var cookieParser = require('cookie-parser');
@@ -21,6 +22,7 @@ app.use(function(req,res,next){
     next();
 });
 
+
 app.use(express.static('public'));
 
 app.set('views', __dirname + '/views');
@@ -29,11 +31,16 @@ app.use(cookieParser());
 
 app.get('/:uuid', require('./controllers/albumController.js'));
 app.get('/', require('./controllers/indexController.js'));
+
+var upload = require('./utils/upload');
 app.post('/upload', function(req, res) {
-    console.log('Uploaded');
+    upload('./tmp', req, function(){
+        console.log('Retour ok 200');
+        res.writeHead(200, {'Content-Type': 'text/plain'});
+        res.end();
+    });
     //res.render('uploaded.ejs', {});
 });
-
-
+ 
 
 app.listen(1337);
