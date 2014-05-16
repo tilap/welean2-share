@@ -1,4 +1,5 @@
 var ObjectId = require('mongodb').ObjectID;
+var fs = require('fs');
 
 module.exports = function(db) {
 
@@ -17,7 +18,14 @@ module.exports.prototype.create = function() {
 			}
 
 			var album = result[0];
-			resolve(album); 
+
+            var base_directory = 'public/uploads/' + album._id;
+            fs.mkdirSync(base_directory);
+            fs.mkdirSync(base_directory + '/min');
+            fs.mkdirSync(base_directory + '/slideshow');
+            fs.mkdirSync(base_directory + '/origin');
+
+			resolve(album);
 		});
 
 	}.bind(this))
