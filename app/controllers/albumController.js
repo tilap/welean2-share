@@ -7,8 +7,6 @@ module.exports = function(req, res) {
 
 	res.render('index.ejs', {'images' : images});
 
-	console.log(req.uuid);
-
 	var collection = req.db.collection('albumcollection');
     collection.find({},{},function(e,docs){
         //console.log(docs);
@@ -18,12 +16,12 @@ module.exports = function(req, res) {
 
 
 
-	var Hashids = require('hashids'),
-	hashids = new Hashids('Welean rocks!');
+var Hashids = require('hashids'),
+hashids = new Hashids('Welean rocks!');
 
-	var hash = hashids.encrypt(12345);
-	//console.log(hash);
-	// hash is now 'ryBo'
+var hash = hashids.encrypt(12345);
+//console.log(hash);
+// hash is now 'ryBo'
 
-	var numbers = hashids.decrypt('ryBo');
-	// numbers is now [ 12345 ] 
+var numbers = hashids.decrypt('ryBo');
+// numbers is now [ 12345 ] 
