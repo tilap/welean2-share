@@ -1,0 +1,7 @@
+{
+    "name": "notyet",
+    "version": "0.0.1",
+    "dependencies": {
+        "dropzone": "^3.10.*"
+    }
+}

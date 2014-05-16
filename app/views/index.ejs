@@ -1,2 +1,13 @@
-
-HELLO WORLD
+<!doctype html>
+<html>
+<head>
+<link rel="stylesheet" href="./css/dropzone.css"  type="text/css" />
+</head>
+<body>
+    <div id="dropzone" class="dropzone" style="margin:auto; width:600px; background-color:#EEE;"></div>
+    <script src="./bower_components/dropzone/downloads/dropzone.min.js"></script>
+    <script>
+        var myDropzone = new Dropzone("div#dropzone", { url: "/upload"});
+    </script>
+</body>
+</html>
