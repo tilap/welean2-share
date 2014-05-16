@@ -17,6 +17,7 @@
     "multiparty": "^3.2.6",
     "node-uuid": "^1.4.1",
     "path": "^0.4.9",
+    "newrelic": "^1.5.5",
     "springbokjs-shim": "^0.1.15"
   },
   "devDependencies": {
