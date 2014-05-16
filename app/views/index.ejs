@@ -51,12 +51,12 @@
         </footer>
     </div>
 
-
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
     <script src="./bower_components/dropzone/downloads/dropzone.min.js"></script>
     <script src="./bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
     <script>
-        var myDropzone = new Dropzone("div#dropzone", { url: "/upload"});
+        Dropzone.autoDiscover = false;
+        var myDropzone = new Dropzone("div#dropzone", { url: "/upload" });
     </script>
 </body>
 </html>

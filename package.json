@@ -6,7 +6,8 @@
   "dependencies": {
     "dropzone": "^3.8.4",
     "ejs": "^1.0.0",
-    "express": "^4.2.0"
+    "express": "^4.2.0",
+    "multiparty": "^3.2.6"
   },
   "devDependencies": {
     "gulp": "^3.6.2",
