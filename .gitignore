@@ -4,3 +4,4 @@ public/bower_components/
 data/
 .DS_Store
 newrelic.js
+config/app.js

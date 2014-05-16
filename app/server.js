@@ -1,4 +1,5 @@
 require('newrelic');
+var config = require('../config/app');
 var express = require('express');
 var cookieParser = require('cookie-parser');
 var mongo = require('mongodb');
@@ -41,4 +42,4 @@ app.post('/:uuid/upload/', require('./controllers/uploadController.js'));
 /***********
 * GOOOO
 ************/ 
-app.listen(1337);
+app.listen(config.port);

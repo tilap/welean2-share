@@ -1,0 +1,6 @@
+exports.config = {
+    port : 1337,
+    logging : {
+        level : 'trace'
+    }
+};
