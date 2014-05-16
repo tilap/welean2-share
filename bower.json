@@ -2,6 +2,7 @@
     "name": "notyet",
     "version": "0.0.1",
     "dependencies": {
-        "dropzone": "^3.10.*"
+        "dropzone": "^3.10.*",
+        "bootstrap": "3.1.*"
     }
 }
