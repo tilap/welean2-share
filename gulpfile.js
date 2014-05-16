@@ -1,6 +1,6 @@
 var gulp = require('gulp');
 var child_process = require('child_process');
-var daemon = require('springbokjs-daemon').node([ 'app/index.js' ]);
+var daemon = require('springbokjs-daemon').node([ 'app/server.js' ]);
 
 process.on('exit', function(code) {
     daemon.stop();
