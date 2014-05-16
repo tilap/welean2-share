@@ -7,7 +7,8 @@
     "gulp": "^3.6.2"
   },
   "devDependencies": {
-    "gulp": "^3.6.2"
+    "gulp": "^3.6.2",
+    "springbokjs-daemon": "^0.1.1"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
