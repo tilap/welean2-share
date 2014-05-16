@@ -35,8 +35,7 @@ app.use(function(req,res,next){
 app.get('/:uuid/', require('./controllers/albumController.js'));
 app.get('/', require('./controllers/indexController.js'));
 app.post('/:uuid/upload/', require('./controllers/uploadController.js'));
-    
- 
+
 /***********
 * GOOOO
 ************/ 

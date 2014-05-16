@@ -1,8 +1,10 @@
 {
-    "name": "notyet",
-    "version": "0.0.1",
-    "dependencies": {
-        "dropzone": "^3.10.*",
-        "bootstrap": "3.1.*"
-    }
+  "name": "notyet",
+  "version": "0.0.1",
+  "dependencies": {
+    "dropzone": "^3.10.*",
+    "bootstrap": "3.1.*",
+    "Justified-Gallery": "~3.1.0",
+    "mustache": "~0.8.1"
+  }
 }

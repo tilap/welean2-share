@@ -2,6 +2,13 @@ var AlbumFactory = require('../model/album/AlbumFactory');
 
 module.exports = function(req, res) {
 
+    images = [
+        '01 - laos moines chartio.jpeg',
+        '02 - angkor chartio.jpeg'
+    ];
+
+	res.render('index.ejs', {'images' : images});
+
     var albumFactory = new AlbumFactory(req.db);
 	var album = albumFactory.get(req.param('uuid')).then(function(album) {
 		if (album && album.files) {
