@@ -42,4 +42,4 @@ app.post('/:uuid/upload/', require('./controllers/uploadController.js'));
 /***********
 * GOOOO
 ************/ 
-app.listen(config.port);
+app.listen(1337);

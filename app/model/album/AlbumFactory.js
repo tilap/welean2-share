@@ -34,7 +34,6 @@ module.exports.prototype = {
 
 				// Create directory to put file inside
 	            var base_directory = this.UPLOAD_DIR + '/' + album._id;
-	            log.info('base_directory', base_directory);
 
 	            fs.mkdirSync(base_directory);
 	            fs.mkdirSync(base_directory + '/miniature');
@@ -76,7 +75,6 @@ module.exports.prototype = {
 						log.error('add file failed', err);
 						return reject(err);
 					}
-					log.info('resolve', result);
 					var album = result[0];
 					resolve(album); 
 		    	});	
@@ -98,7 +96,6 @@ module.exports.prototype = {
 			var extension = path.extname(file.name);
 
 			var moveTo = this.UPLOAD_DIR + '/' + albumId + '/' + this.ORIGIN + '/' + uuid + extension;
-			log.info(moveTo);
 		    fs.rename(file.path, moveTo, function (err) {
 
 		        if (err) {
@@ -114,7 +111,6 @@ module.exports.prototype = {
 	        	file.paths.miniature = '/' + this.PUBLIC_PATH + '/' + albumId + '/' + this.MINIATURE + "/"  + uuid + extension;
 	        	file.paths.slideshow = '/' + this.PUBLIC_PATH + '/' + albumId + '/' + this.SLIDESHOW + "/"  + uuid + extension;
 				
-				log.info('file', file);
 	        	delete file.path;
 
 	        	// compress image
@@ -144,7 +140,6 @@ module.exports.prototype = {
 	        		}
 	        	}.bind(this));
 				
-				log.info('file', file);
 	        	resolve(file);
 
 		    }.bind(this));
