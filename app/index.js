@@ -34,10 +34,13 @@ app.get('/', require('./controllers/indexController.js'));
 
 var upload = require('./utils/upload');
 app.post('/upload', function(req, res) {
-    upload('./tmp', req, function(){
-        console.log('Retour ok 200');
-        res.writeHead(200, {'Content-Type': 'text/plain'});
-        res.end();
+    upload('./tmp', req, function(result, image){
+        if(result){
+            console.log('Retour ok 200');
+            res.json(200, image);
+        }else{
+            //...
+        }
     });
     //res.render('uploaded.ejs', {});
 });

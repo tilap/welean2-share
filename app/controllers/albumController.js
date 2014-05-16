@@ -1,5 +1,11 @@
 module.exports = function(req, res) {
-	res.render('index.ejs', {});
+
+    images = [
+        '01 - laos moines chartio.jpeg',
+        '02 - angkor chartio.jpeg'
+    ];
+
+	res.render('index.ejs', {'images' : images});
 
 	console.log(req.uuid);
 
