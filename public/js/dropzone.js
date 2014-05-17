@@ -41,7 +41,6 @@ var current = 0;
 myDropzone.on("addedfile", function(file) {
     totalSize += file.size;
     console.log('total'+totalSize);
-    $(".notification").html("Let's your friends fullfill this album, send them the url!");
     $(".home-cover").remove();
     var imageloaded = new imagesLoaded( ".dz-processing img");
     $(".dz-processing img").css('opacity', 0);
@@ -68,16 +67,18 @@ myDropzone.on('complete', function(file) {
 });
 
 myDropzone.on('error', function(file, err, xhr){
-    errorMsg = "Error while loading file " + file.name;
+    errorMsg = file.name;
     if(xhr && xhr.statusText){
-        errorMsg += ' (' + xhr.statusText + ')';
+        errorMsg += ' - ' + xhr.responseText;
         console.log(xhr);
+    } else {
+        errorMsg += ' - ' + err;
     }
     $('.top-right').notify({
         message: { text: errorMsg },
         type : 'danger'
     }).show();
-    console.log(file, err, xhr);
+    console.log(err);
 });
 
 /*

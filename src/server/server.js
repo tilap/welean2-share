@@ -29,9 +29,12 @@ MongoClient.connect("mongodb://localhost:27017/share", function(err, dbMongo) {
 ***********************/
 i18n.configure({
     locales:['en', 'fr'],
-    directory: config.serverDir + '/locales',
-    defaultLocale: 'fr'
+    directory: config.serverDir + '/locales'
+    //,defaultLocale: 'en'
 });
+log.info('i18n configured : ', i18n);
+log.info('locale : ' + i18n.getLocale());
+
 
 /***********
 * APP

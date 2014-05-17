@@ -18,8 +18,8 @@ module.exports = function(req, res) {
             log.info('Probably new album ' + req.param('auid'));
         }
 
-
     }).catch(function(){
+        res.json(500, {'error' : 'technical problem'});
         log.warning('Unexisting album ' + req.param('auid'));
     });
 

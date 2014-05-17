@@ -12,7 +12,8 @@ module.exports = function(req, res) {
 
         try {
             if (err || !files.file || !files.file[0]) {
-                res.json(500, {'error' : 'technical problem'});
+                res.writeHead(500, {'Content-Type': 'text/plain'});
+                res.end(res.__('Un problème technique est survenu'));
                 throw "Empty file";
             }
 
@@ -24,7 +25,8 @@ module.exports = function(req, res) {
                 case 'image/gif':
                     break;
                 default:
-                    res.json(400, {'error' : 'bad mime type : ' + fileUploaded.headers['content-type']});
+                    res.writeHead(400, {'Content-Type': 'text/plain'});
+                    res.end(res.__('Type de fichier non autorisé') + ' : ' + fileUploaded.headers['content-type']);
                     throw "Bad mime-type " + fileUploaded.headers['content-type'];
             }
 
@@ -33,9 +35,12 @@ module.exports = function(req, res) {
             var albumFactory = new AlbumFactory(req.db);
             albumFactory.addFile(req.param('uuid'), file).then(function(file) {
                 log.success('file added :)');
-                res.json(200, file);
+                //res.json(200, file);
+                res.writeHead(500, {'Content-Type': 'text/plain'});
+                res.end(res.__('Un problème technique est survenu'));
             }).catch(function(err){
-                res.json(500, {'error' : 'technical problem'});
+                res.writeHead(500, {'Content-Type': 'text/plain'});
+                res.end(res.__('Un problème technique est survenu'));
                 throw err;
             });
 
