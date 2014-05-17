@@ -9,6 +9,7 @@
     "dropzone": "^3.8.4",
     "ejs": "^1.0.0",
     "express": "^4.2.0",
+    "fstream": "^0.1.25",
     "gm": "^1.16.0",
     "gulp-less": "^1.2.3",
     "hashids": "^0.3.3",
@@ -19,8 +20,11 @@
     "multiparty": "^3.2.6",
     "newrelic": "^1.5.5",
     "node-uuid": "^1.4.1",
+    "node-zip": "^1.1.0",
     "path": "^0.4.9",
-    "springbokjs-shim": "^0.1.15"
+    "springbokjs-shim": "^0.1.15",
+    "tar": "^0.1.19",
+    "zlib": "^1.0.5"
   },
   "devDependencies": {
     "gulp": "^3.6.2",
