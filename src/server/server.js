@@ -44,6 +44,8 @@ app.use(function(req,res,next){
 app.get('/:uuid/', require(config.serverDir + '/controllers/albumController.js'));
 app.get('/', require(config.serverDir + '/controllers/indexController.js'));
 app.post('/:uuid/upload/', require(config.serverDir + '/controllers/uploadController.js'));
+//app.get('/:uuid/delete/', require(config.serverDir + '/controllers/deleteAlbumController.js'));
+app.get('/:auid/delete/:iuid/', require(config.serverDir + '/controllers/deleteImageController.js'));
 
 
 /***********
