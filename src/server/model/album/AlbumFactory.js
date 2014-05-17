@@ -75,8 +75,7 @@ module.exports.prototype = {
 						log.error('add file failed', err);
 						return reject(err);
 					}
-					var album = result[0];
-					resolve(album); 
+					resolve(file);
 		    	});	
 		    }.bind(this)).catch(console.log);
 
@@ -121,7 +120,7 @@ module.exports.prototype = {
 	        	.autoOrient() 
 	        	.resize(null, 300 + '>')
 	        	.gravity('Center')
-	        	.extent(null, 300)
+	        	//.extent(null, 300)
 	        	.write(this.UPLOAD_DIR + '/' + albumId + '/' + this.MINIATURE + '/'  + uuid + extension, function(err) {
 	        		if (err) {
 		        		reject(err);
