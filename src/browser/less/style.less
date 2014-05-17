@@ -39,6 +39,21 @@ body {
 @import "@{PATH_LAYOUT}/cover.less";
 @import "@{PATH_LAYOUT}/gallery.less";
 
+.notifications {
+  position: fixed;
+}
+.notifications.top-right {
+  right: 10px;
+  top: 50px;
+}
+/* Notification Element */
+.notifications > div {
+  position: relative;
+  z-index: 9999;
+  margin: 5px 0px;
+}
+
+
 .notification {
     text-align: center;
     // position: absolute;
