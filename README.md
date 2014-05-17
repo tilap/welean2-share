@@ -14,5 +14,5 @@ Deployment
     share@share:~/site/www$ make update
     share@share:~/site/www$ ps -ef | grep nodejs
     share@share:~/site/www$ kill pid (gotten from ps)
-    share@share:~/site/www$ nohup nodejs app/server.js > /home/share/site/logs/output.log &
+    share@share:~/site/www$ nohup nodejs src/server/server.js > /home/share/site/logs/output.log &
 
