@@ -1,5 +1,5 @@
 require('newrelic');
-var config = require('../config/app');
+var config = require('../../config/app');
 var express = require('express');
 var cookieParser = require('cookie-parser');
 var mongo = require('mongodb');
@@ -41,10 +41,9 @@ app.get('/:uuid/archive', require('./controllers/archiveController.js'));
 app.get('/', require('./controllers/indexController.js'));
 app.post('/:uuid/upload/', require('./controllers/uploadController.js'));
 
-
 /***********
 * GOOOO
-************/
+************/ 
 var server = app.listen(config.port, function() {
     log.success('We are on ! Listening on port ' + server.address().port);
 });

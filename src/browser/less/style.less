@@ -1,0 +1,214 @@
+@import "base.less";
+@textColor: #555;
+
+textarea:hover, 
+input:hover, 
+textarea:active, 
+input:active, 
+textarea:focus, 
+input:focus,
+button:focus,
+button:active,
+button:hover
+{
+    outline:0px !important;
+    -webkit-appearance:none;
+}
+
+body, html {
+    height: 100%;
+}
+
+body {
+	background-image: url('/images/background.jpg');
+	margin-top: 50px; /* 50px is the height of the navbar - change this if the navbarn height changes */
+}
+
+footer {
+	margin: 50px 0;
+}
+
+.cover {
+	position: absolute;
+	left: 0px;
+	right: 0px;
+	bottom:0;
+	top:0px;
+}
+
+
+
+.cover-link {
+	bottom: 0px;
+	position: absolute;
+	color: @textColor;
+	border-top: 1px solid @textColor;
+	padding-top: 30px;
+}
+
+.cover-link:hover {
+	border-top: 2px solid @textColor;
+	color: @textColor;
+	text-decoration: none;
+	
+}
+
+
+@-webkit-keyframes rotateWord {
+    0% { opacity: 0; }
+    2% { opacity: 0; -webkit-transform: translateY(-30px); }
+	5% { opacity: 1; -webkit-transform: translateY(0px);}
+    17% { opacity: 1; -webkit-transform: translateY(0px); }
+	20% { opacity: 0; -webkit-transform: translateY(30px); }
+	80% { opacity: 0; }
+    100% { opacity: 0; }
+}
+@-moz-keyframes rotateWord {
+    0% { opacity: 0; }
+    2% { opacity: 0; -moz-transform: translateY(-30px); }
+	5% { opacity: 1; -moz-transform: translateY(0px);}
+    17% { opacity: 1; -moz-transform: translateY(0px); }
+	20% { opacity: 0; -moz-transform: translateY(30px); }
+	80% { opacity: 0; }
+    100% { opacity: 0; }
+}
+@-o-keyframes rotateWord {
+    0% { opacity: 0; }
+    2% { opacity: 0; -o-transform: translateY(-30px); }
+	5% { opacity: 1; -o-transform: translateY(0px);}
+    17% { opacity: 1; -o-transform: translateY(0px); }
+	20% { opacity: 0; -o-transform: translateY(30px); }
+	80% { opacity: 0; }
+    100% { opacity: 0; }
+}
+@-ms-keyframes rotateWord {
+    0% { opacity: 0; }
+    2% { opacity: 0; -ms-transform: translateY(-30px); }
+	5% { opacity: 1; -ms-transform: translateY(0px);}
+    17% { opacity: 1; -ms-transform: translateY(0px); }
+	20% { opacity: 0; -ms-transform: translateY(30px); }
+	80% { opacity: 0; }
+    100% { opacity: 0; }
+}
+@keyframes rotateWord {
+    0% { opacity: 0; }
+    2% { opacity: 0; transform: translateY(-30px); }
+	5% { opacity: 1; transform: translateY(0px);}
+    17% { opacity: 1; transform: translateY(0px); }
+	20% { opacity: 0; transform: translateY(30px); }
+	80% { opacity: 0; }
+    100% { opacity: 0; }
+}
+
+.animation(@delay) {
+	-webkit-animation: rotateWord 18s linear infinite @delay;
+	-moz-animation: rotateWord 18s linear infinite @delay;
+	-o-animation: rotateWord 18s linear infinite @delay;
+	-ms-animation: rotateWord 18s linear infinite @delay;
+	animation: rotateWord 18s linear infinite @delay;
+}
+
+h1 {
+
+	text-align: left;
+	font-family: Merriweather, Arial, sans-serif;
+	font-size: 30px;
+	color: @textColor;
+	margin: 130px 0px 80px 30%;
+	line-height: 80px;
+
+	> span {
+		font-size: 40px;
+		display: block;
+
+		span {
+			color: darken(@upload-color, 10%);
+		}
+	}
+
+	.rw-words{
+		width: 400px;
+		text-align:left;
+	    display: inline;
+	    text-indent: 10px;
+
+	    span{
+	    	.animation(0s);
+		    position: absolute;
+		    opacity: 0;
+		    overflow: hidden;
+		    width: 100%;
+
+		}
+
+		span:nth-child(2) { 
+		    .animation(15s); 
+		}
+
+		span:nth-child(3) { 
+		    .animation(3s); 
+		}
+
+		span:nth-child(4) { 
+		    .animation(6s); 
+		} 
+		span:nth-child(5) { 
+		    .animation(12s); 
+		}
+		span:nth-child(6) {  
+		    .animation(9s); 
+		}
+	}	
+}
+
+img.bg {
+  /* Set rules to fill background */
+  min-height: 100%;
+  min-width: 1024px;
+	
+  /* Set up proportionate scaling */
+  width: 100%;
+  height: auto;
+	
+  /* Set up positioning */
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+@upload-color: #B0132B;
+@upload-progress: #269B3B;
+
+.btn-primary, .btn-primary:focus, .btn-primary:active {
+	background-color: @upload-color;
+	border-color: darken(@upload-color, 10%);
+	position: relative;
+}
+
+.btn-primary:hover {
+	background-color: darken(@upload-color, 5%);
+	border-color: darken(@upload-color, 10%);
+}
+
+.uploadprogress {
+	position:absolute;
+	left: 0px;
+	top: 0px;
+	bottom: 0px;
+	background-color: @upload-progress;
+	border-width: 0px 2px 0px 0px;
+	border-top-right-radius: 0;
+	border-bottom-right-radius: 0;
+	width: 70%;
+	color: white;
+}
+
+.btn-primary:hover {
+	background-color: darken(@upload-progress, 5%);
+	border-color: darken(@upload-progress, 10%);
+}
+
+.dz-preview {
+	display: none;
+}
+

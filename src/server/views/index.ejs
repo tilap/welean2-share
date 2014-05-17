@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Picanoo</title>
+    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Droid+Sans:400,700|Merriweather:400,700" type="text/css">
+
+    <link rel="stylesheet" href="/bower_components/Justified-Gallery/dist/css/justifiedGallery.min.css" type="text/css" />
+    <link rel="stylesheet" href="/bower_components/bootstrap/dist/css/bootstrap.min.css" type="text/css" />
+    <link rel="stylesheet" href="/dist/style.css"  type="text/css" />
+</head>
+<body>
+    <!--<img src="/images/b2.jpg" class="bg">-->
+    <div class="row">
+        <div class="text-center cover">
+            <h1>Congratulations, You have now
+                <span class="focus"> THE album of your 
+                    <div class="rw-words rw-words-1">
+                        <span>event</span>
+                        <span>wedding</span>
+                        <span>week-end</span>
+                        <span>travel</span>
+                        <span>party</span>
+                        <span>diner</span>
+                    </div>
+                </span>
+            </h1>
+            <p class="center-block">
+                <button type="button" class="upload btn btn-primary btn-lg btn-primary">Upload your first pictures
+                <span class="uploadprogress btn btn-primary btn-lg btn-primary"></span>
+                </button>
+            </p>
+            <p  class="center-block">
+                <a href="#" class="cover-link">Read more</a>
+            </p>
+        </div>
+        <% if (error != null){ %>
+            <div class="warning center-block"><%= error %></div>
+        <% } %>
+        
+        <div id="mygallery">
+            <% for(var i=0; i < files.length; i++) { %>
+                <a href="<%= files[i].paths.miniature %>">
+                    <img alt="<%= files[i].name %>" src="<%= files[i].paths.miniature %>" />
+                </a>
+            <% } %>
+        </div>
+    </div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+    <script src="/bower_components/dropzone/downloads/dropzone.min.js"></script>
+    <script src="/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="/bower_components/Justified-Gallery/dist/js/jquery.justifiedGallery.min.js"></script>
+    <script src="/bower_components/mustache/mustache.js"></script>
+
+    <script type="text/javascript" src="/js/dropzone.js"></script>
+        
+</body>
+</html>
