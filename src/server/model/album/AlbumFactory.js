@@ -92,7 +92,7 @@ module.exports.prototype = {
 
 			// Get extension
 			var path = require('path')
-			var extension = path.extname(file.name);
+			var extension = '.jpg';
 
 			var moveTo = this.UPLOAD_DIR + '/' + albumId + '/' + this.ORIGIN + '/' + uuid + extension;
 		    fs.rename(file.path, moveTo, function (err) {

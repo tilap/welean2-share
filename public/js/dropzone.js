@@ -7,7 +7,10 @@ var params = {
     url: "./upload/",
     previewsContainer: "#mygallery",
     thumbnailHeight: 300,
-    thumbnailWidth: 300
+    thumbnailWidth: 300,
+    success: function(err, result) {
+        console.log(result);
+    }
 };
 if ($(".upload").length) {
     params.clickable = '.upload';
