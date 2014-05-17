@@ -8,17 +8,17 @@
             <h1 class="site-title">Picanoo</h1>
             <% if (!isnew) { %>
             <div class='header-buttons'>
-            <i>Let's your friend fullfill this album </i><span class="glyphicon glyphicon-hand-right"></span>
-                <a>
+            <i><%= __('Invitez vos amis à participer') %> </i><span class="glyphicon glyphicon-hand-right"></span>
+                <a title="<%= __('Partager') %>">
                     <span class="glyphicon glyphicon glyphicon-link"></span>
                 </a>
-                <a href="<%= links.new_album %>">
+                <a title="<%= __('Créer un nouvel album') %>" href="<%= links.new_album %>">
                     <span class="glyphicon glyphicon-folder-open"></span>
                 </a>
-                <a href="<%= links.download %>">
+                <a title="<%= __('Télécharger cet album') %>" href="<%= links.download %>">
                     <span class="glyphicon glyphicon-download-alt"></span>
                 </a>
-                <a>
+                <a title="<%= __('Ajouter des photos à cet album') %>">
                     <span class="glyphicon glyphicon-plus upload"></span>
                 </a>
             </div>

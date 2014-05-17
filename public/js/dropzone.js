@@ -40,7 +40,6 @@ myDropzone.on("uploadprogress", function(hop, percentage, bytes) {
 myDropzone.on("addedfile", function(file) {
     totalSize += file.size;
     console.log('total'+totalSize);
-    $(".notification").html("Let's your friends fullfill this album, send them the url!");
     $(".home-cover").remove();
 });
 
