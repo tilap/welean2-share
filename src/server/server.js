@@ -1,5 +1,6 @@
 require('newrelic');
 var express = require('express');
+var i18n = require("i18n");
 var cookieParser = require('cookie-parser');
 var mongo = require('mongodb');
 var MongoClient = require('mongodb').MongoClient;
@@ -23,6 +24,15 @@ MongoClient.connect("mongodb://localhost:27017/share", function(err, dbMongo) {
   }
 });
 
+/**********************
+* INTERNATIONALISATION
+***********************/
+i18n.configure({
+    locales:['en', 'fr'],
+    directory: config.serverDir + '/locales',
+    defaultLocale: 'fr'
+});
+
 /***********
 * APP
 ************/
@@ -31,6 +41,7 @@ var app = express();
 app.set('views', config.serverDir + '/views');
 app.use(express.static('public'));
 app.use(cookieParser());
+app.use(i18n.init);
 
 // Make our db accessible to our router
 app.use(function(req,res,next){
