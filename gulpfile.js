@@ -23,5 +23,5 @@ gulp.task('watch', ['less'], function() {
 });
 
 gulp.task('less', function() {
-	gulp.src('src/browser/less/style.less').pipe(less()).pipe(gulp.dest('public/dist'));
+	gulp.src('src/browser/less/style.less').pipe(less()).pipe(gulp.dest('public/dist/css'));
 })
