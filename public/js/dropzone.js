@@ -3,6 +3,7 @@ Dropzone.autoDiscover = false;
 var totalSize = 0;
 var sizeProgress = 0;
 
+var templatefile = $("#templatefiles script").first();
 var params = {
     url: "./upload/",
     previewsContainer: "#mygallery",
@@ -10,13 +11,11 @@ var params = {
     thumbnailWidth: 300,
     success: function(err, result) {
         console.log(result);
-    }
+    },
+    previewTemplate: templatefile.text(),
+    clickable: '.upload'
 };
-if ($(".upload").length) {
-    params.clickable = '.upload';
-} else {
-    params.clickable = false;
-}
+
 var myDropzone = new Dropzone(document.body, params);
 
 var template = '<a href="{{{ url }}}"><img alt="{{{ url }}}" src="{{{ url }}}" /></a>';
@@ -34,7 +33,7 @@ myDropzone.on("uploadprogress", function(hop, percentage, bytes) {
     $(".uploadprogress").show();
     var current = Math.round(100 * ((bytes + sizeProgress) / totalSize));
     console.log(current);
-    $(".uploadprogress").css("width", current + "%");
+    $(".allprogress").css("width", current + "%");
     $(".uploadprogress").text(humanFileSize(bytes + sizeProgress) + " / " + humanFileSize(totalSize));
 });
 
@@ -46,6 +45,7 @@ myDropzone.on("addedfile", function(file) {
 });
 
 myDropzone.on('complete', function(file) {
+    console.log('arguments', arguments);
     sizeProgress += file.size;
     if (this.getUploadingFiles().length === 0 && this.getQueuedFiles().length === 0) {
         // End of upload :)

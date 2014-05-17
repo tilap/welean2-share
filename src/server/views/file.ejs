@@ -7,7 +7,8 @@
             <strong><%= files[i].size %></strong>
         </div>
         <a  rel="slideshow" href="<%= files[i].paths.slideshow %>">
-            <img alt="<%= files[i].name %>" src="<%= files[i].paths.miniature %>" />
+            <img data-dz-thumbnail alt="<%= files[i].name %>" src="<%= files[i].paths.miniature %>" />
         </a>
     </div>
+    <div class="dz-progress" data-dz-uploadprogress><span class="dz-upload"></span></div>
 </div>
