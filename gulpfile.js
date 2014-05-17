@@ -17,7 +17,7 @@ gulp.task('watch', ['less'], function() {
     gulp.watch('src/browser/**/*.less', ['less']);
 
 	var server = livereload();
-	gulp.watch('public/dist/*').on('change', function(file) {
+	gulp.watch(['public/dist/*', 'src/server/**/*.ejs']).on('change', function(file) {
 		server.changed(file.path);
 	});
 });

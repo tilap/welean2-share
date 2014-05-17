@@ -15,7 +15,12 @@ module.exports = function(req, res) {
             isNew = true;
             log.info('Probably new album ' + req.param('uuid'));
         }
-        res.render('index.ejs', {'files' : files, 'error':'', 'isNew':isNew, 'IMAGE_PATH': albumFactory.PUBLIC_PATH});
+
+        if (isNew) {
+        	res.render('index.ejs', {'files' : files, 'error':'', 'IMAGE_PATH': albumFactory.PUBLIC_PATH});
+        } else {
+        	res.render('album.ejs', {'files' : files, 'error':'', 'IMAGE_PATH': albumFactory.PUBLIC_PATH});
+        }
 
 	}).catch(function(){
         log.warning('Unexisting album ' + req.param('uuid'));
