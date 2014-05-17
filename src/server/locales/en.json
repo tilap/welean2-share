@@ -3,5 +3,7 @@
     "Créer un nouvel album": "Create a new album",
     "Ajouter des photos à cet album": "Add pictures",
     "Télécharger cet album": "Download this album",
-    "Partager": "Share"
+    "Partager": "Share",
+    "Type de fichier non autorisé": "Unauthorized file type",
+    "Un problème technique est survenu": "A technical problem occured"
 }

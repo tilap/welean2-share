@@ -52,16 +52,18 @@ myDropzone.on('complete', function(file) {
 });
 
 myDropzone.on('error', function(file, err, xhr){
-    errorMsg = "Error file : " + file.name;
+    errorMsg = file.name;
     if(xhr && xhr.statusText){
-        errorMsg += ' (' + xhr.statusText + ')';
+        errorMsg += ' - ' + xhr.responseText;
         console.log(xhr);
+    } else {
+        errorMsg += ' - ' + err;
     }
     $('.top-right').notify({
         message: { text: errorMsg },
         type : 'danger'
     }).show();
-    console.log(file, err, xhr);
+    console.log(err);
 });
 
 /*
