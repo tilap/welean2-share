@@ -54,12 +54,14 @@ myDropzone.on('complete', function(file) {
 
 myDropzone.on('error', function(file, err, xhr){
     errorMsg = "Error while loading file " + file.name;
-    if(xhr){
+    if(xhr && xhr.statusText){
         errorMsg += ' (' + xhr.statusText + ')';
         console.log(xhr);
     }
-    $(".notification").html(errorMsg);
-    alert(errorMsg);
+    $('.top-right').notify({
+        message: { text: errorMsg },
+        type : 'danger'
+    }).show();
     console.log(file, err, xhr);
 });
 
