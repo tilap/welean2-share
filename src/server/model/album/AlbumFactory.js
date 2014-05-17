@@ -69,6 +69,22 @@ module.exports.prototype = {
 
 	},
 
+    deleteFile : function (_id, fileId) {
+
+            return new Promise(function(resolve, reject) {
+                log.info('removing file ' + fileId + ' from album ' + _id);
+                this.db.collection('albumcollection').update({_id: new ObjectId(_id)}, {$pull: {files: {id : fileId} }}, function(err, result) {
+                    if (err) {
+                        log.error('delete file failed', err);
+                        return reject(err);
+                    }
+                    resolve();
+                    this._makeArchive(_id);
+                }.bind(this));
+            }.bind(this))
+            .catch(log.error);
+    },
+
 	_treatFile : function (file, albumId) {
         // Create uuid
         var uuidGenerator = require('node-uuid');
@@ -77,24 +93,31 @@ module.exports.prototype = {
         // Get extension
         var path = require('path')
         var extension = '.jpg';
+        var image = {
+            id : uuid,
+            filename : uuid + extension,
+            paths : {
+                origin : config.uploadPath + '/' + albumId + '/' + config.originFolderName + '/'  + uuid + extension,
+                miniature : config.uploadPath + '/' + albumId + '/' + config.miniatureFolderName + '/'  + uuid + extension,
+                slideshow : config.uploadPath + '/' + albumId + '/' + config.slideshowFolderName + '/'  + uuid + extension
+            },
+            dirs : {
+                origin : config.uploadDir + '/' + albumId + '/' + config.originFolderName + '/'  + uuid + extension,
+                miniature : config.uploadDir + '/' + albumId + '/' + config.miniatureFolderName + '/'  + uuid + extension,
+                slideshow : config.uploadDir + '/' + albumId + '/' + config.slideshowFolderName + '/'  + uuid + extension
+            }
+        };
 
-        var moveTo = config.uploadDir + '/' + albumId + '/' + config.originFolderName + '/' + uuid + extension;
         return new Promise(function(resolve, reject) {
-            fs.rename(file.path, moveTo, function (err) {
+            fs.rename(file.path, image.dirs.origin, function (err) {
 
                 if (err) {
                     log.error('file', err);
-                    log.error('file', moveTo);
+                    log.error('file', image.dirs.origin);
                     return reject('problem with move');
                 }
 
-                // Put the final paths into the file
-                file.paths = {};
-                file.paths.origin = config.uploadPath + '/' + albumId + '/' + config.originFolderName + '/'  + uuid + extension;
-                file.paths.miniature = config.uploadPath + '/' + albumId + '/' + config.miniatureFolderName + '/'  + uuid + extension;
-                file.paths.slideshow = config.uploadPath + '/' + albumId + '/' + config.slideshowFolderName + '/'  + uuid + extension;
-
-                delete file.path;
+                delete file;
 
                 resolve();
             }.bind(this));
@@ -105,41 +128,41 @@ module.exports.prototype = {
             return Promise.all([
                 new Promise(function(resolve, reject) {
                     // miniature
-                    gm(config.uploadDir + '/' + albumId + '/' + config.originFolderName + '/'  + uuid + extension)
+                    gm(image.dirs.origin)
                     .autoOrient()
                     .resize(null, 300 + '>')
                     .gravity('Center')
                     //.extent(null, 300)
-                    .write(config.uploadDir + '/' + albumId + '/' + config.miniatureFolderName + '/'  + uuid + extension, function(err) {
+                    .write(image.dirs.miniature, function(err) {
                         if (err) {
                             reject(err);
                             log.error('error for mini', err);
                             return;
                         }
-                        log.info ("writing : " + config.uploadDir + '/' + albumId + '/' + config.miniatureFolderName + '/'  + uuid + extension);
+                        log.info ("writing : " + image.dirs.miniature);
                         resolve();
                     }.bind(this))
                 }.bind(this)),
 
                 new Promise(function(resolve, reject) {
                     // slideshow
-                    gm(config.uploadDir + '/' + albumId + '/' + config.originFolderName + '/'  + uuid + extension)
+                    gm(image.dirs.origin)
                     .autoOrient()
                     .resize(null, 1000 + '>')
-                    .write(config.uploadDir + '/' + albumId + '/' + config.slideshowFolderName + '/' + uuid + extension, function(err) {
+                    .write(image.dirs.slideshow, function(err) {
                         if (err) {
                             reject(err);
                             log.error('error for slideshow', err);
                             return;
                         }
-                        log.info ("writing : " + config.uploadDir + '/' + albumId + '/' + config.slideshowFolderName + '/'  + uuid + extension);
+                        log.info ("writing : " + image.dirs.slideshow);
                         resolve();
                     }.bind(this))
                 }.bind(this))
             ]);
         }.bind(this))
         .then(function() {
-            return file;
+            return image;
         });
 
 	},
