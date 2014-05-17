@@ -52,7 +52,7 @@ myDropzone.on('complete', function(file) {
 });
 
 myDropzone.on('error', function(file, err, xhr){
-    errorMsg = "Error while loading file " + file.name;
+    errorMsg = "Error file : " + file.name;
     if(xhr && xhr.statusText){
         errorMsg += ' (' + xhr.statusText + ')';
         console.log(xhr);
