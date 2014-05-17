@@ -15,6 +15,8 @@ MongoClient.connect("mongodb://localhost:27017/share", function(err, dbMongo) {
   if(!err) {
     log.success("We are connected");
     db = dbMongo;
+  } else {
+      log.error('Unable to connect to mongodb !', err);
   }
 });
 
@@ -43,7 +45,7 @@ app.post('/:uuid/upload/', require('./controllers/uploadController.js'));
 
 /***********
 * GOOOO
-************/ 
+************/
 var server = app.listen(config.port, function() {
     log.success('We are on ! Listening on port ' + server.address().port);
 });

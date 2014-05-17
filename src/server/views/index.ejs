@@ -2,16 +2,15 @@
 <html>
 <% include parts/head.ejs %>
 <body>
-<<<<<<< HEAD
     <div class="topbar">
-        <h1>Picanoo</h1>
+        <h1 class="site-title">Picanoo</h1>
     </div>
     <div class="subtitle notification"><% if (!isnew) { %>
         Let's your friends fullfill this album, send them the url!
     <% } %></div>
     <div class="row text-center">
         <% if (isnew){ %>
-        <% include cover.ejs %>
+            <% include cover.ejs %>
         <% } %>
         <% if (error != null){ %>
             <div class="warning center-block"><%= error %></div>
