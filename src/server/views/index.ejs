@@ -5,13 +5,12 @@
     <div class='notifications top-right'></div>
     <div class="topbar">
         <div class="row">
+            <div class="header-share">
+                <span class="glyphicon glyphicon-hand-up hand"></span> <i><%= __('Invitez vos amis à participer') %></i>
+            </div>
             <h1 class="site-title">Picanoo</h1>
             <% if (!isnew) { %>
             <div class='header-buttons'>
-            <i><%= __('Invitez vos amis à participer') %> </i><span class="glyphicon glyphicon-hand-right"></span>
-                <a title="<%= __('Partager') %>">
-                    <span class="glyphicon glyphicon glyphicon-link"></span>
-                </a>
                 <a title="<%= __('Créer un nouvel album') %>" href="<%= links.new_album %>">
                     <span class="glyphicon glyphicon-folder-open"></span>
                 </a>

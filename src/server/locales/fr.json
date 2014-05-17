@@ -1,9 +1,18 @@
 {
-	"Invitez vos amis à participer": "Invitez vos amis à participer",
+	"Invitez vos amis à participer": "Invitez vos amis à participer, envoyez leur l'adresse",
 	"Créer un nouvel album": "Créer un nouvel album",
 	"Ajouter des photos à cet album": "Ajouter des photos à cet album",
 	"Télécharger cet album": "Télécharger cet album",
 	"Partager": "Partager",
 	"Type de fichier non autorisé": "Type de fichier non autorisé",
-	"Un problème technique est survenu": "Un problème technique est survenu"
+	"Un problème technique est survenu": "Un problème technique est survenu",
+	"Félicitations, vous venez de créer": "Félicitations, vous venez de créer",
+	"L'album de votre": "L'album de votre",
+	"événement": "événement",
+	"mariage": "mariage",
+	"week-end": "week-end",
+	"voyage": "voyage",
+    "soirée": "soirée",
+	"dîner": "dîner",
+	"Commencez dès maintenant à télécharger vos photos": "Commencez dès maintenant à télécharger vos photos"
 }

@@ -60,8 +60,9 @@ myDropzone.on('error', function(file, err, xhr){
         errorMsg += ' - ' + err;
     }
     $('.top-right').notify({
-        message: { text: errorMsg },
-        type : 'danger'
+        message: { text: errorMsg + ' '}, //sorry it's 11:10pm
+        type : 'danger',
+        closable : false
     }).show();
     console.log(err);
 });

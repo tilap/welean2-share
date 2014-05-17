@@ -41,6 +41,7 @@ body {
 
 .notifications {
   position: fixed;
+  z-index: 9999;
 }
 .notifications.top-right {
   right: 10px;
@@ -50,19 +51,9 @@ body {
 .notifications > div {
   position: relative;
   z-index: 9999;
-  margin: 5px 0px;
+  margin: 5px 5px;
 }
 
-
-.notification {
-    text-align: center;
-    // position: absolute;
-    // top:@LAYOUT-TOPBAR-HEIGHT;
-    // left:0px;
-    // right: 0px;
-    padding:10px 0;
-
-}
 
 .btn-primary, .btn-primary:focus, .btn-primary:active {
     background-color: @brand-color;

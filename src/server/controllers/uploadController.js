@@ -35,9 +35,7 @@ module.exports = function(req, res) {
             var albumFactory = new AlbumFactory(req.db);
             albumFactory.addFile(req.param('uuid'), file).then(function(file) {
                 log.success('file added :)');
-                //res.json(200, file);
-                res.writeHead(500, {'Content-Type': 'text/plain'});
-                res.end(res.__('Un problème technique est survenu'));
+                res.json(200, file);
             }).catch(function(err){
                 res.writeHead(500, {'Content-Type': 'text/plain'});
                 res.end(res.__('Un problème technique est survenu'));
