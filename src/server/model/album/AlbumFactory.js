@@ -43,7 +43,7 @@ module.exports.prototype = {
 					return reject(err);
 				}
 				var album = result[0];
-				resolve(album); 
+				resolve(album);
 			});
 
 		}.bind(this))
@@ -96,24 +96,40 @@ module.exports.prototype = {
         var image = {
             id : uuid,
             filename : uuid + extension,
-            paths : {
-                origin : config.uploadPath + '/' + albumId + '/' + config.originFolderName + '/'  + uuid + extension,
-                miniature : config.uploadPath + '/' + albumId + '/' + config.miniatureFolderName + '/'  + uuid + extension,
-                slideshow : config.uploadPath + '/' + albumId + '/' + config.slideshowFolderName + '/'  + uuid + extension
-            },
-            dirs : {
-                origin : config.uploadDir + '/' + albumId + '/' + config.originFolderName + '/'  + uuid + extension,
-                miniature : config.uploadDir + '/' + albumId + '/' + config.miniatureFolderName + '/'  + uuid + extension,
-                slideshow : config.uploadDir + '/' + albumId + '/' + config.slideshowFolderName + '/'  + uuid + extension
+            thumbnails: {
+                origin : {
+                    path: config.uploadPath + '/' + albumId + '/' + config.originFolderName + '/'  + uuid + extension,
+                    size: {
+                        width: null,
+                        height: null
+                    },
+                    dir: config.uploadDir + '/' + albumId + '/' + config.originFolderName + '/'  + uuid + extension
+                },
+                miniature : {
+                    path: config.uploadPath + '/' + albumId + '/' + config.miniatureFolderName + '/'  + uuid + extension,
+                    size: {
+                        width: null,
+                        height: null
+                    },
+                    dir: config.uploadDir + '/' + albumId + '/' + config.miniatureFolderName + '/'  + uuid + extension
+                },
+                slideshow : {
+                    path: config.uploadPath + '/' + albumId + '/' + config.slideshowFolderName + '/'  + uuid + extension,
+                    size: {
+                        width: null,
+                        height: null
+                    },
+                    dir: config.uploadDir + '/' + albumId + '/' + config.slideshowFolderName + '/'  + uuid + extension
+                }
             }
         };
 
         return new Promise(function(resolve, reject) {
-            fs.rename(file.path, image.dirs.origin, function (err) {
+            fs.rename(file.path, image.thumbnails.origin.dir, function (err) {
 
                 if (err) {
                     log.error('file', err);
-                    log.error('file', image.dirs.origin);
+                    log.error('file', image.thumbnails.origin.dir);
                     return reject('problem with move');
                 }
 
@@ -128,35 +144,55 @@ module.exports.prototype = {
             return Promise.all([
                 new Promise(function(resolve, reject) {
                     // miniature
-                    gm(image.dirs.origin)
+                    gm(image.thumbnails.origin.dir)
                     .autoOrient()
-                    .resize(null, 300 + '>')
+                    .resize(null, 300)
                     .gravity('Center')
                     //.extent(null, 300)
-                    .write(image.dirs.miniature, function(err) {
+                    .write(image.thumbnails.miniature.dir, function(err) {
                         if (err) {
                             reject(err);
                             log.error('error for mini', err);
                             return;
                         }
-                        log.info ("writing : " + image.dirs.miniature);
-                        resolve();
+                        log.info ("writing : " + image.thumbnails.miniature.dir);
+
+                        // size
+                        gm(image.thumbnails.miniature.dir).size(function(err, val) {
+                            image.thumbnails.miniature.size = val;
+                            log.info('size', val);
+                            resolve();
+                        })
                     }.bind(this))
                 }.bind(this)),
 
                 new Promise(function(resolve, reject) {
+                    // size of image
+                    gm(image.thumbnails.origin.dir).size(function(err, val) {
+                        image.thumbnails.origin.size = val;
+                        log.info('size', val);
+                        resolve();
+                    })
+                }.bind(this)),
+
+                new Promise(function(resolve, reject) {
                     // slideshow
-                    gm(image.dirs.origin)
+                    gm(image.thumbnails.origin.dir)
                     .autoOrient()
                     .resize(null, 1000 + '>')
-                    .write(image.dirs.slideshow, function(err) {
+                    .write(image.thumbnails.slideshow.dir, function(err) {
                         if (err) {
                             reject(err);
                             log.error('error for slideshow', err);
                             return;
                         }
-                        log.info ("writing : " + image.dirs.slideshow);
-                        resolve();
+                        log.info ("writing : " + image.thumbnails.slideshow.dir);
+                        // size
+                        gm(image.thumbnails.slideshow.dir).size(function(err, val) {
+                            image.thumbnails.slideshow.size = val;
+                            log.info('size', val);
+                            resolve();
+                        })
                     }.bind(this))
                 }.bind(this))
             ]);

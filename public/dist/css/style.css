@@ -2825,7 +2825,6 @@ address {
   height: 300px;
   float: left;
   position: relative;
-  margin: 5px;
   /*margin: 0px 3px 20px 3px;*/
 }
 #mygallery .thumbnail span {
@@ -2850,6 +2849,9 @@ address {
   background-color: rgba(255, 255, 255, 0.6);
   cursor: pointer;
 }
+#mygallery .is-new {
+  margin: 5px;
+}
 #mygallery .dz-preview {
   -moz-box-shadow: 0px 3px 5px 0px #c0c0c0;
   -webkit-box-shadow: 0px 3px 5px 0px #c0c0c0;
@@ -2868,6 +2870,35 @@ address {
   padding: 6px;
   background: #fff;
   border: 1px solid #ccc;
+}
+.mygallery {
+  background: #eee;
+}
+/* clearfix */
+.mygallery:before,
+.mygallery:after {
+  content: "";
+  display: table;
+}
+.mygallery:after {
+  clear: both;
+}
+.thumbnail {
+  float: left;
+  margin-bottom: 10px;
+}
+.thumbnail img {
+  max-width: 100%;
+  max-height: 100%;
+  vertical-align: bottom;
+}
+.first-item {
+  clear: both;
+}
+/* remove margin bottom on last row */
+.last-row,
+.last-row ~ .thumbnail {
+  margin-bottom: 0;
 }
 .notifications {
   position: fixed;

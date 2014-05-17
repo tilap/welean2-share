@@ -1,13 +1,12 @@
-<div class="dz-preview thumbnail dz-processing dz-image-preview">
+<div class="dz-preview thumbnail dz-image-preview <% if(files[i].is_new) { %>
+is-new
+<% } %>">
     <div class='dz-details'>
         <div class="dz-filename">
             <span data-dz-name><%= files[i].name %></span>
         </div>
-        <div class='dz-file' data-dz-size>
-            <strong><%= files[i].size %></strong>
-        </div>
-        <a  rel="slideshow" href="<%= files[i].paths.slideshow %>">
-            <img data-dz-thumbnail alt="<%= files[i].name %>" src="<%= files[i].paths.miniature %>" />
+        <a  rel="slideshow" href="<%= files[i].thumbnails.slideshow.path %>">
+            <img width="<%= files[i].thumbnails.miniature.size.width %>" height="<%= files[i].thumbnails.miniature.size.height %>" data-dz-thumbnail alt="<%= files[i].name %>" src="<%= files[i].thumbnails.miniature.path %>" />
         </a>
     </div>
     <div class="dz-progress" data-dz-uploadprogress><span class="dz-upload"></span></div>
