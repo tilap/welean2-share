@@ -52,6 +52,17 @@ myDropzone.on('complete', function(file) {
     }
 });
 
+myDropzone.on('error', function(file, err, xhr){
+    errorMsg = "Error while loading file " + file.name;
+    if(xhr){
+        errorMsg += ' (' + xhr.statusText + ')';
+        console.log(xhr);
+    }
+    $(".notification").html(errorMsg);
+    alert(errorMsg);
+    console.log(file, err, xhr);
+});
+
 /*
 $("#mygallery").justifiedGallery({
     rowHeight : 300,
