@@ -6,8 +6,8 @@
     <div class="topbar">
         <div class="row">
             <h1 class="site-title">Picanoo</h1>
-            <% if (!isnew) { %>
-            <div class='header-buttons'>
+            <div class='header-buttons
+            <% if (isnew) { %>nodisplay<%}%>'>
             <i><%= __('Invitez vos amis à participer') %> </i><span class="glyphicon glyphicon-hand-right"></span>
                 <a title="<%= __('Partager') %>">
                     <span class="glyphicon glyphicon glyphicon-link"></span>
@@ -22,7 +22,6 @@
                     <span class="glyphicon glyphicon-plus upload"></span>
                 </a>
             </div>
-            <% } %>
         </div>
         <div class="dz-progress allprogress"><span class="dz-upload" data-dz-uploadprogress></span></div>
     </div>

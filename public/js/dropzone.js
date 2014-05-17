@@ -44,6 +44,7 @@ myDropzone.on("addedfile", function(file) {
     $(".home-cover").remove();
     var imageloaded = new imagesLoaded( ".dz-processing img");
     $(".dz-processing img").css('opacity', 0);
+    $(".header-buttons").show();
     /*
     imageloaded.on( 'done', function( instance ) {
         console.log('DONE  - all images have been successfully loaded');

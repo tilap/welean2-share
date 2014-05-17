@@ -1,5 +1,5 @@
 var initGrid = function() {
-    var options = {minMargin: 5, maxMargin: 35, itemSelector: ".thumbnail"};
+    var options = {minMargin: 5, maxMargin: 25, itemSelector: ".thumbnail"};
     $("#mygallery").rowGrid(options);
     setTimeout(function() {
         window.scrollTo(0,document.body.scrollHeight);
