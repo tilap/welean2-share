@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Picanoo</title>
+
+    <link rel="stylesheet" href="/bower_components/Justified-Gallery/dist/css/justifiedGallery.min.css" type="text/css" />
+    <link rel="stylesheet" href="/bower_components/bootstrap/dist/css/bootstrap.min.css" type="text/css" />
+    <link rel="stylesheet" href="/dist/style.css"  type="text/css" />
+</head>
+<body>
+<!--
+     <nav class="navbar navbar-fixed-top navbar-inverse" role="navigation">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="/">Picanoo</a>
+            </div>
+            <div class="collapse navbar-collapse navbar-ex1-collapse">
+                <ul class="nav navbar-nav">
+                    <li><a href="#about">About</a>
+                    </li>
+                    <li><a href="#services">Services</a>
+                    </li>
+                    <li><a href="#contact">Contact</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+-->
+    <div class="row">
+        <div class="col-lg-12">
+            <h1>Congratulations! You have now your album, why don't you add some photos on it?</h1>
+        </div>
+        <% if (error != null){ %>
+            <div class="warning"><%= error %></div>
+        <% } %>
+        <% if (isNew){ %>
+            <div class="info">Ceci est un nouvel album, on peut mettre un gros encart ... ou ce qu'on veut</div>
+        <% } else { %>
+            <div class="info">Ceci est un album existant, on peut mettre un bouton pour créer un autre album par exemple</div>
+        <% }%>
+        <div id="mygallery">
+            <% for(var i=0; i < files.length; i++) { %>
+                <a href="<%= files[i].paths.miniature %>">
+                    <img alt="<%= files[i].name %>" src="<%= files[i].paths.miniature %>" />
+                </a>
+            <% } %>
+        </div>
+    </div>
+    <footer>
+        <div class="row">
+            <div class="col-lg-12">
+                <p>Copyright &copy; Company 2013</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+    <script src="/bower_components/dropzone/downloads/dropzone.min.js"></script>
+    <script src="/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="/bower_components/Justified-Gallery/dist/js/jquery.justifiedGallery.min.js"></script>
+    <script src="/bower_components/mustache/mustache.js"></script>
+
+    <script type="text/javascript">
+        Dropzone.autoDiscover = false;
+
+        var myDropzone = new Dropzone(document.body, {
+            url: "./upload/",
+            clickable: false
+        });
+
+        var template = '<a href="{{{ url }}}"><img alt="{{{ url }}}" src="{{{ url }}}" /></a>';
+
+        myDropzone.on("success", function(file, response) {
+            var output = Mustache.render(template, {url : response.path});
+            $('#mygallery').append(output);
+        });
+
+        myDropzone.on("queuecomplete", function() {
+            $("#mygallery").justifiedGallery();
+        });
+
+
+        $("#mygallery").justifiedGallery({
+            rowHeight : 300,
+            fixedHeight : true
+        });
+    </script>
+
+</body>
+</html>
