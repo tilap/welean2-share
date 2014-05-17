@@ -1,3 +1,147 @@
+html,
+body,
+div,
+span,
+applet,
+object,
+iframe,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+blockquote,
+pre,
+a,
+abbr,
+acronym,
+address,
+big,
+cite,
+code,
+del,
+dfn,
+font,
+img,
+ins,
+kbd,
+q,
+s,
+samp,
+small,
+strike,
+sub,
+sup,
+tt,
+var,
+dl,
+dt,
+dd,
+ol,
+ul,
+li,
+fieldset,
+form,
+label,
+legend,
+table,
+caption,
+tbody,
+tfoot,
+thead,
+tr,
+th,
+td,
+input {
+  padding: 0;
+  margin: 0;
+  font-family: inherit;
+  font-size: 100%;
+  font-style: inherit;
+  font-weight: normal;
+  vertical-align: baseline;
+  border: 0;
+  outline: 0;
+}
+:focus {
+  outline: 0;
+}
+a {
+  cursor: pointer;
+}
+a:active {
+  outline: none;
+}
+a:focus {
+  outline: none;
+}
+ol,
+ul {
+  list-style: none;
+}
+table {
+  border-collapse: separate;
+  border-spacing: 0;
+}
+caption,
+th,
+td {
+  font-weight: normal;
+  text-align: left;
+}
+blockquote:before,
+blockquote:after,
+q:before,
+q:after {
+  content: "";
+}
+blockquote,
+q {
+  quotes: "" "";
+}
+button {
+  cursor: pointer;
+}
+textarea:hover,
+input:hover,
+textarea:active,
+input:active,
+textarea:focus,
+input:focus,
+button:focus,
+button:active,
+button:hover {
+  outline: 0px !important;
+  -webkit-appearance: none;
+}
+body,
+html {
+  height: 100%;
+  margin-top: 20px;
+}
+body {
+  background-image: url('/images/background.jpg');
+  margin-top: 40px;
+  font-size: 14px;
+  line-height: 1.3em;
+  font-family: 'Droid Sans', Arial, Helvetica, "Liberation Sans", FreeSans, sans-serif;
+}
+.h1,
+.h2,
+.h3 {
+  font-weight: bold;
+}
+.h1 {
+  font-size: 2.5em;
+}
+.h2 {
+  font-size: 2em;
+}
+.h3 {
+  font-size: 1.7em;
+}
 @-webkit-keyframes rotateWord {
   0% {
     opacity: 0;
@@ -153,6 +297,8 @@ h1 .rw-words {
   text-indent: 10px;
 }
 h1 .rw-words span {
+  -webkit-animation: 0s;
+  animation: 0s;
   -webkit-animation: rotateWord 18s linear infinite 0s;
   -moz-animation: rotateWord 18s linear infinite 0s;
   -o-animation: rotateWord 18s linear infinite 0s;
@@ -164,6 +310,8 @@ h1 .rw-words span {
   width: 250px;
 }
 h1 .rw-words span:nth-child(2) {
+  -webkit-animation: 15s;
+  animation: 15s;
   -webkit-animation: rotateWord 18s linear infinite 15s;
   -moz-animation: rotateWord 18s linear infinite 15s;
   -o-animation: rotateWord 18s linear infinite 15s;
@@ -171,6 +319,8 @@ h1 .rw-words span:nth-child(2) {
   animation: rotateWord 18s linear infinite 15s;
 }
 h1 .rw-words span:nth-child(3) {
+  -webkit-animation: 3s;
+  animation: 3s;
   -webkit-animation: rotateWord 18s linear infinite 3s;
   -moz-animation: rotateWord 18s linear infinite 3s;
   -o-animation: rotateWord 18s linear infinite 3s;
@@ -178,6 +328,8 @@ h1 .rw-words span:nth-child(3) {
   animation: rotateWord 18s linear infinite 3s;
 }
 h1 .rw-words span:nth-child(4) {
+  -webkit-animation: 6s;
+  animation: 6s;
   -webkit-animation: rotateWord 18s linear infinite 6s;
   -moz-animation: rotateWord 18s linear infinite 6s;
   -o-animation: rotateWord 18s linear infinite 6s;
@@ -185,6 +337,8 @@ h1 .rw-words span:nth-child(4) {
   animation: rotateWord 18s linear infinite 6s;
 }
 h1 .rw-words span:nth-child(5) {
+  -webkit-animation: 12s;
+  animation: 12s;
   -webkit-animation: rotateWord 18s linear infinite 12s;
   -moz-animation: rotateWord 18s linear infinite 12s;
   -o-animation: rotateWord 18s linear infinite 12s;
@@ -192,6 +346,8 @@ h1 .rw-words span:nth-child(5) {
   animation: rotateWord 18s linear infinite 12s;
 }
 h1 .rw-words span:nth-child(6) {
+  -webkit-animation: 9s;
+  animation: 9s;
   -webkit-animation: rotateWord 18s linear infinite 9s;
   -moz-animation: rotateWord 18s linear infinite 9s;
   -o-animation: rotateWord 18s linear infinite 9s;
@@ -249,27 +405,19 @@ h1 .rw-words span:nth-child(6) {
 .dz-preview .dz-error-message {
   display: none;
 }
-textarea:hover,
-input:hover,
-textarea:active,
-input:active,
-textarea:focus,
-input:focus,
-button:focus,
-button:active,
-button:hover {
-  outline: 0px !important;
-  -webkit-appearance: none;
-}
-body,
-html {
-  height: 100%;
-  margin-top: 20px;
-}
-body {
-  background-image: url('/images/background.jpg');
-  margin-top: 50px;
-  /* 50px is the height of the navbar - change this if the navbarn height changes */
+.topbar {
+  position: absolute;
+  height: 40px;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+  background: #ededf0;
+  background-image: -moz-linear-gradient(bottom, #ededf0 0%, #fafafb 100%);
+  background-image: -webkit-linear-gradient(bottom, #ededf0 0%, #fafafb 100%);
+  background-image: linear-gradient(to top, #ededf0 0%, #fafafb 100%);
+  box-shadow: 0 1px 0px #d4d7d7;
+  text-align: center;
 }
 .notification {
   text-align: center;
@@ -299,7 +447,7 @@ body {
   text-decoration: none;
 }
 .subtitle {
-  font-family: Merriweather, Arial, sans-serif;
+  font-family: 'Merriweather', Times, "Times New Roman", "Liberation Serif", FreeSerif, serif;
   font-size: 30px;
   color: #555555;
 }

@@ -1,24 +1,25 @@
+// Main paths
+@PATH_CONFIG: './config';
+@PATH_LAYOUT: './layout';
+@PATH_LIB: './lib';
+@PATH_BOOTSTRAP: '../../../public/bower_components/bootstrap/less';
 
-@upload-color: #B0132B;
-@upload-progress: #269B3B;
+// Configuration
+@import "@{PATH_CONFIG}/colors.less";
+@import "@{PATH_CONFIG}/fonts.less";
+@import "@{PATH_CONFIG}/bootstrap.less";
+@import "@{PATH_CONFIG}/layout.less";
 
-@import "title-animated";
-@import "dropzone";
-@textColor: #555;
+// Fast lib
+@import "@{PATH_LIB}/fonts.less";
+@import "@{PATH_LIB}/mixins.less";
+@import "@{PATH_LIB}/shadow.less";
 
-textarea:hover,
-input:hover,
-textarea:active,
-input:active,
-textarea:focus,
-input:focus,
-button:focus,
-button:active,
-button:hover
-{
-    outline:0px !important;
-    -webkit-appearance:none;
-}
+// Layout components
+@import "reset.less";
+@import "bootstrap.less";
+
+
 
 body, html {
     height: 100%;
@@ -27,8 +28,17 @@ body, html {
 
 body {
 	background-image: url('/images/background.jpg');
-	margin-top: 50px; /* 50px is the height of the navbar - change this if the navbarn height changes */
+	margin-top: @LAYOUT-TOPBAR-HEIGHT;
+    font-size:14px;
+    line-height:1.3em;
+    .font(sans);
 }
+
+
+@import "@{PATH_LAYOUT}/type.less";
+@import "@{PATH_LAYOUT}/animated-title.less";
+@import "@{PATH_LAYOUT}/dropzone.less";
+@import "@{PATH_LAYOUT}/topbar.less";
 
 .notification {
     text-align: center;
@@ -47,8 +57,6 @@ body {
 	top:50px;
 }
 
-
-
 .cover-link {
 	bottom: 0px;
 	position: absolute;
@@ -61,11 +69,10 @@ body {
 	border-top: 2px solid @textColor;
 	color: @textColor;
 	text-decoration: none;
-
 }
 
 .subtitle {
-    font-family: Merriweather, Arial, sans-serif;
+    .font(serif);
     font-size: 30px;
     color: @textColor;
 }

@@ -1,11 +1,12 @@
 <!DOCTYPE html>
 <html>
-<% include head.ejs %>
+<% include parts/head.ejs %>
 <body>
-    <!--<img src="/images/b2.jpg" class="bg">-->
+    <div class="topbar">
+        <h1>Picanoo</h1>
+    </div>
     <div class="subtitle notification"></div>
     <div class="row text-center">
-
         <div class="text-center cover">
             <h1 class="subtitle">Congratulations, You have now
                 <span class="focus"> THE album of your
@@ -35,13 +36,8 @@
         </div>
     </div>
 
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
-    <script src="/bower_components/dropzone/downloads/dropzone.min.js"></script>
-    <script src="/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
-    <script src="/bower_components/Justified-Gallery/dist/js/jquery.justifiedGallery.min.js"></script>
-    <script src="/bower_components/mustache/mustache.js"></script>
 
-    <script type="text/javascript" src="/js/dropzone.js"></script>
+    <% include parts/body-footer.ejs %>
 
 </body>
 </html>
