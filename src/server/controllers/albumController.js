@@ -1,5 +1,4 @@
-var AlbumFactory = require('../model/album/AlbumFactory');
-var log = require('../utils/psrConsole');
+var AlbumFactory = require(config.serverDir + '/model/album/AlbumFactory');
 
 module.exports = function(req, res) {
 
