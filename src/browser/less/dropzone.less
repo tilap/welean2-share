@@ -1,0 +1,62 @@
+
+.uploadprogress {
+    position:absolute;
+    left: 0px;
+    top: 0px;
+    bottom: 0px;
+    background-color: @upload-progress;
+    border-width: 0px 2px 0px 0px;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+    width: 70%;
+    color: white;
+    display: none;
+}
+
+.btn-primary:hover {
+    background-color: darken(@upload-progress, 5%);
+    border-color: darken(@upload-progress, 10%);
+}
+
+.dz-preview {
+    /*display: none;*/
+}
+
+.dz-preview {
+    height: 300px;
+    float:left;
+    position: relative;
+
+    .dz-details {
+        .dz-filename {
+            position: absolute;
+        }
+        .dz-size {
+            display: none;
+        }
+        img {
+            height: 300px;
+        }
+    }
+
+    .dz-progress {
+        background-color: @upload-progress;
+        position: absolute;
+        bottom: 0px;
+        left: 0px;
+        right: 0px;
+        height: 10px;
+    }
+
+    .dz-success-mark {
+        display: none;
+    }
+
+    .dz-error-mark {
+        display: none;
+    }
+
+    .dz-error-message {
+        display: none;
+    }
+}

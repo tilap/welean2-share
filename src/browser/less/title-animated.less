@@ -1,10 +1,66 @@
 
+
+
+@-webkit-keyframes rotateWord {
+    0% { opacity: 0; }
+    2% { opacity: 0; -webkit-transform: translateY(-30px); }
+    5% { opacity: 1; -webkit-transform: translateY(0px);}
+    17% { opacity: 1; -webkit-transform: translateY(0px); }
+    20% { opacity: 0; -webkit-transform: translateY(30px); }
+    80% { opacity: 0; }
+    100% { opacity: 0; }
+}
+@-moz-keyframes rotateWord {
+    0% { opacity: 0; }
+    2% { opacity: 0; -moz-transform: translateY(-30px); }
+    5% { opacity: 1; -moz-transform: translateY(0px);}
+    17% { opacity: 1; -moz-transform: translateY(0px); }
+    20% { opacity: 0; -moz-transform: translateY(30px); }
+    80% { opacity: 0; }
+    100% { opacity: 0; }
+}
+@-o-keyframes rotateWord {
+    0% { opacity: 0; }
+    2% { opacity: 0; -o-transform: translateY(-30px); }
+    5% { opacity: 1; -o-transform: translateY(0px);}
+    17% { opacity: 1; -o-transform: translateY(0px); }
+    20% { opacity: 0; -o-transform: translateY(30px); }
+    80% { opacity: 0; }
+    100% { opacity: 0; }
+}
+@-ms-keyframes rotateWord {
+    0% { opacity: 0; }
+    2% { opacity: 0; -ms-transform: translateY(-30px); }
+    5% { opacity: 1; -ms-transform: translateY(0px);}
+    17% { opacity: 1; -ms-transform: translateY(0px); }
+    20% { opacity: 0; -ms-transform: translateY(30px); }
+    80% { opacity: 0; }
+    100% { opacity: 0; }
+}
+@keyframes rotateWord {
+    0% { opacity: 0; }
+    2% { opacity: 0; transform: translateY(-30px); }
+    5% { opacity: 1; transform: translateY(0px);}
+    17% { opacity: 1; transform: translateY(0px); }
+    20% { opacity: 0; transform: translateY(30px); }
+    80% { opacity: 0; }
+    100% { opacity: 0; }
+}
+
+.animation(@delay) {
+    -webkit-animation: rotateWord 18s linear infinite @delay;
+    -moz-animation: rotateWord 18s linear infinite @delay;
+    -o-animation: rotateWord 18s linear infinite @delay;
+    -ms-animation: rotateWord 18s linear infinite @delay;
+    animation: rotateWord 18s linear infinite @delay;
+}
+
 h1 {
 
     text-align: left;
-    margin: 130px 0px 80px 30%;
+    margin: 80px 0px 80px 30%;
     line-height: 80px;
-
+    width: auto;
     > span {
         font-size: 40px;
         display: block;
@@ -15,7 +71,7 @@ h1 {
     }
 
     .rw-words{
-        width: 400px;
+        width: 150px;
         text-align:left;
         display: inline;
         text-indent: 10px;
@@ -25,7 +81,7 @@ h1 {
             position: absolute;
             opacity: 0;
             overflow: hidden;
-            width: 100%;
+            width: 250px;
 
         }
 
