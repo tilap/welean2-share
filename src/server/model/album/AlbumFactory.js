@@ -1,22 +1,9 @@
 var ObjectId = require('mongodb').ObjectID;
 var fs = require('fs');
-var log = require('../../utils/psrConsole');
 
 
 module.exports = function(db) {
-
 	this.db = db;
-
-	/*********
-	* CONFIG
-	**********/
-	// @todo put that in another file
-	this.ORIGIN = 'origin';
-	this.MINIATURE = 'miniature';
-	this.SLIDESHOW = 'slideshow';
-	this.PUBLIC_PATH = 'uploads';
-	this.UPLOAD_DIR = 'public/uploads';
-
 }
 
 module.exports.prototype = {
@@ -33,7 +20,7 @@ module.exports.prototype = {
 				var album = result[0];
 
 				// Create directory to put file inside
-	            var base_directory = this.UPLOAD_DIR + '/' + album._id;
+	            var base_directory = config.uploadDir + '/' + album._id;
 
 	            fs.mkdirSync(base_directory);
 	            fs.mkdirSync(base_directory + '/miniature');
@@ -65,85 +52,104 @@ module.exports.prototype = {
 
 	addFile : function (_id, file) {
 
+		return this._treatFile(file, _id).then(function(file) {
+            return new Promise(function(resolve, reject) {
+                log.info('treatFile finnished', file);
+                this.db.collection('albumcollection').update({_id: new ObjectId(_id)}, {$push: {files:file}}, function(err, result) {
+                    if (err) {
+                        log.error('add file failed', err);
+                        return reject(err);
+                    }
+                    resolve(file);
+                    this._makeArchive(_id);
+                }.bind(this));
+            }.bind(this));
+        }.bind(this))
+        .catch(log.error);
 
-		return new Promise(function(resolve, reject) {
-	    	
-		    this._treatFile(file, _id).then(function(file) {
-		    	log.info('treatFile finnished', file);
-		    	this.db.collection('albumcollection').update({_id: new ObjectId(_id)}, {$push: {files:file}}, function(err, result) {
-					if (err) {
-						log.error('add file failed', err);
-						return reject(err);
-					}
-					resolve(file);
-		    	});	
-		    }.bind(this)).catch(console.log);
-
-		}.bind(this))
 	},
 
 	_treatFile : function (file, albumId) {
+        // Create uuid
+        var uuidGenerator = require('node-uuid');
+        var uuid = uuidGenerator.v4();
 
-		return new Promise(function(resolve, reject) {
+        // Get extension
+        var path = require('path')
+        var extension = '.jpg';
 
-			// Create uuid
-			var uuidGenerator = require('node-uuid');
-			var uuid = uuidGenerator.v4();
+        var moveTo = config.uploadDir + '/' + albumId + '/' + config.originFolderName + '/' + uuid + extension;
+        return new Promise(function(resolve, reject) {
+            fs.rename(file.path, moveTo, function (err) {
 
-			// Get extension
-			var path = require('path')
-			var extension = '.jpg';
+                if (err) {
+                    log.error('file', err);
+                    log.error('file', moveTo);
+                    return reject('problem with move');
+                }
 
-			var moveTo = this.UPLOAD_DIR + '/' + albumId + '/' + this.ORIGIN + '/' + uuid + extension;
-		    fs.rename(file.path, moveTo, function (err) {
+                // Put the final paths into the file
+                file.paths = {};
+                file.paths.origin = config.uploadPath + '/' + albumId + '/' + config.originFolderName + '/'  + uuid + extension;
+                file.paths.miniature = config.uploadPath + '/' + albumId + '/' + config.miniatureFolderName + '/'  + uuid + extension;
+                file.paths.slideshow = config.uploadPath + '/' + albumId + '/' + config.slideshowFolderName + '/'  + uuid + extension;
 
-		        if (err) {
-		        	log.error('file', err);
-		        	log.error('file', moveTo);
-		        	reject('problem with move');
-		        	return;
-		        } 
+                delete file.path;
 
-		        // Put the final paths into the file
-		        file.paths = {};
-	        	file.paths.origin = '/' + this.PUBLIC_PATH + '/' + albumId + '/' + this.ORIGIN + "/"  + uuid + extension;
-	        	file.paths.miniature = '/' + this.PUBLIC_PATH + '/' + albumId + '/' + this.MINIATURE + "/"  + uuid + extension;
-	        	file.paths.slideshow = '/' + this.PUBLIC_PATH + '/' + albumId + '/' + this.SLIDESHOW + "/"  + uuid + extension;
-				
-	        	delete file.path;
+                resolve();
+            }.bind(this));
+        }.bind(this)).then(function() {
+            // compress image
+            var gm = require("gm").subClass({ imageMagick: true });
 
-	        	// compress image
-	        	var gm = require("gm").subClass({ imageMagick: true });
+            return Promise.all([
+                new Promise(function(resolve, reject) {
+                    // miniature
+                    gm(config.uploadDir + '/' + albumId + '/' + config.originFolderName + '/'  + uuid + extension)
+                    .autoOrient()
+                    .resize(null, 300 + '>')
+                    .gravity('Center')
+                    //.extent(null, 300)
+                    .write(config.uploadDir + '/' + albumId + '/' + config.miniatureFolderName + '/'  + uuid + extension, function(err) {
+                        if (err) {
+                            reject(err);
+                            log.error('error for mini', err);
+                            return;
+                        }
+                        log.info ("writing : " + config.uploadDir + '/' + albumId + '/' + config.miniatureFolderName + '/'  + uuid + extension);
+                        resolve();
+                    }.bind(this))
+                }.bind(this)),
 
-	        	// miniature
-	        	gm(this.UPLOAD_DIR + '/' + albumId + '/' + this.ORIGIN + '/'  + uuid + extension)
-	        	.autoOrient() 
-	        	.resize(null, 300 + '>')
-	        	.gravity('Center')
-	        	//.extent(null, 300)
-	        	.write(this.UPLOAD_DIR + '/' + albumId + '/' + this.MINIATURE + '/'  + uuid + extension, function(err) {
-	        		if (err) {
-		        		reject(err);
-		        		log.error('error for mini', err);
-	        		}
-	        	}.bind(this));
+                new Promise(function(resolve, reject) {
+                    // slideshow
+                    gm(config.uploadDir + '/' + albumId + '/' + config.originFolderName + '/'  + uuid + extension)
+                    .autoOrient()
+                    .resize(null, 1000 + '>')
+                    .write(config.uploadDir + '/' + albumId + '/' + config.slideshowFolderName + '/' + uuid + extension, function(err) {
+                        if (err) {
+                            reject(err);
+                            log.error('error for slideshow', err);
+                            return;
+                        }
+                        log.info ("writing : " + config.uploadDir + '/' + albumId + '/' + config.slideshowFolderName + '/'  + uuid + extension);
+                        resolve();
+                    }.bind(this))
+                }.bind(this))
+            ]);
+        }.bind(this))
+        .then(function() {
+            return file;
+        });
 
-	        	// slideshow
-	        	gm(this.UPLOAD_DIR + '/' + albumId + '/' + this.ORIGIN + '/'  + uuid + extension)
-	        	.autoOrient() 
-	        	.resize(null, 1000 + '>')
-	        	.write(this.UPLOAD_DIR + '/' + albumId + '/' + this.SLIDESHOW + '/' + uuid + extension, function(err) {
-	        		if (err) {
-		        		reject(err);
-		        		log.error('error for slideshow', err);
-	        		}
-	        	}.bind(this));
-				
-	        	resolve(file);
+	},
 
-		    }.bind(this));
+    _makeArchive : function (_id) {
+        process.nextTick(function(){
+            log.info("bah je passe !");
+            //@todo manage require / app path
+            var archiver = require(config.serverDir + '/utils/archiveProcesses.js').addAlbum(_id);
+        });
+    }
 
-		}.bind(this))
-
-	}
 }

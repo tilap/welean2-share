@@ -1,11 +1,14 @@
 require('newrelic');
-var config = require('../../config/app');
 var express = require('express');
 var cookieParser = require('cookie-parser');
 var mongo = require('mongodb');
 var MongoClient = require('mongodb').MongoClient;
 require('springbokjs-shim/es6');
-var log = require('./utils/psrConsole');
+global.config = require('../../config/app');
+global.log = require(config.serverDir + '/utils/psrConsole');
+
+/* log config */
+log.info('Loaded configuration file : ', config);
 
 /***********
 * DB
@@ -25,7 +28,7 @@ MongoClient.connect("mongodb://localhost:27017/share", function(err, dbMongo) {
 ************/
 var app = express();
 
-app.set('views', __dirname + '/views');
+app.set('views', config.serverDir + '/views');
 app.use(express.static('public'));
 app.use(cookieParser());
 
@@ -38,10 +41,10 @@ app.use(function(req,res,next){
 /***********
 * ROUTES
 ************/
-app.get('/:uuid/', require('./controllers/albumController.js'));
-app.get('/:uuid/archive', require('./controllers/archiveController.js'));
-app.get('/', require('./controllers/indexController.js'));
-app.post('/:uuid/upload/', require('./controllers/uploadController.js'));
+app.get('/:uuid/', require(config.serverDir + '/controllers/albumController.js'));
+app.get('/', require(config.serverDir + '/controllers/indexController.js'));
+app.post('/:uuid/upload/', require(config.serverDir + '/controllers/uploadController.js'));
+
 
 /***********
 * GOOOO

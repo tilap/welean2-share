@@ -1,6 +1,5 @@
-var Hashids = require('hashids'),
-	AlbumFactory = require('../model/album/AlbumFactory'),
-	log = require('../utils/psrConsole');
+var Hashids = require('hashids');
+var AlbumFactory = require(config.serverDir + '/model/album/AlbumFactory');
 
 module.exports = function(req, res) {
 	

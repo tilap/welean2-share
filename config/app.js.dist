@@ -1,5 +1,20 @@
+var rootDir = '/home/matthieu/dev/evaneos/welean/welean2-share';
+
 module.exports = {
-    port : 1337,
+    port : 3000,
+
+    rootDir : rootDir,
+    srcDir : rootDir + '/src',
+    serverDir : rootDir + '/src/server',
+    browserDir : rootDir + '/src/browser',
+    publicDir : rootDir + '/public',
+    uploadDir : rootDir + '/public/uploads',
+
+    uploadPath : '/uploads',
+    miniatureFolderName : 'miniature',
+    originFolderName : 'origin',
+    slideshowFolderName : 'slideshow',
+
     logging : {
         level : 'trace'
     }

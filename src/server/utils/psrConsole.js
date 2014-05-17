@@ -2,12 +2,13 @@ var colors = require('colors');
 var moment = require('moment');
 
 module.exports = {
+
 	log: function(message, object, color, previousText) {
 		
 		if (!color) {
 			color = "black";
 		}
-		console.log((previousText+': '+ moment().format('MMMM Do YYYY, h:mm:ss a') + "  " +  message.toUpperCase())[color].bold);
+		console.log((previousText+': '+ moment().format('MMMM Do YYYY, h:mm:ss a') + "  " +  message)[color].bold);
 		if (object) {
 			console.log(JSON.stringify(object, null, 4)[color]);
 		}	

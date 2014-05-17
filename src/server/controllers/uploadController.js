@@ -1,7 +1,6 @@
 
 var multiparty = require('multiparty');
-var AlbumFactory = require('../model/album/AlbumFactory');
-var log = require('../utils/psrConsole');
+var AlbumFactory = require(config.serverDir + '/model/album/AlbumFactory');
 
 module.exports = function(req, res) {
 
@@ -45,8 +44,5 @@ module.exports = function(req, res) {
         }
 
     });
-    
-    //res.writeHead(200, {'Content-Type': 'text/plain'});
-    //res.end();
 
 }; 
