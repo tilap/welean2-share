@@ -17,14 +17,14 @@ module.exports = function(req, res) {
         }
 
         if (isNew) {
-        	res.render('index.ejs', {'files' : files, 'error':'', 'IMAGE_PATH': albumFactory.PUBLIC_PATH});
+        	res.render('index.ejs', {'isnew': true, 'files' : files, 'error':'', 'IMAGE_PATH': albumFactory.PUBLIC_PATH});
         } else {
-        	res.render('album.ejs', {'files' : files, 'error':'', 'IMAGE_PATH': albumFactory.PUBLIC_PATH});
+        	res.render('index.ejs', {'isnew': false, 'files' : files, 'error':'', 'IMAGE_PATH': albumFactory.PUBLIC_PATH});
         }
 
 	}).catch(function(){
         log.warning('Unexisting album ' + req.param('uuid'));
-        res.render('index.ejs', {'files' : [], 'error':'Mauvais code !!', 'isNew': false, 'IMAGE_PATH': albumFactory.PUBLIC_PATH});
+        res.render('index.ejs', {'files' : [], 'error':'Mauvais code !!', 'isnew': false, 'IMAGE_PATH': albumFactory.PUBLIC_PATH});
     });
 }
 
@@ -39,4 +39,4 @@ var hash = hashids.encrypt(12345);
 // hash is now 'ryBo'
 
 var numbers = hashids.decrypt('ryBo');
-// numbers is now [ 12345 ] 
+// numbers is now [ 12345 ]
