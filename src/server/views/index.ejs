@@ -16,6 +16,11 @@
             <div class="warning center-block"><%= error %></div>
         <% } %>
         <div id="mygallery">
+            <% if(!isnew) { %>
+                <div class="dz-preview dz-processing dz-image-preview">
+                    <span class="glyphicon glyphicon-plus"></span>Hello
+                </div>
+            <% } %>
             <% for(var i=0; i<files.length; i++) { %>
 
                 <% include file.ejs %>
