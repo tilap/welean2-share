@@ -1,0 +1,13 @@
+<div class="dz-preview dz-processing dz-image-preview">
+    <div class='dz-details'>
+        <div class="dz-filename">
+            <span data-dz-name>files[i].name</span>
+        </div>
+        <div class='dz-file' data-dz-size>
+            <strong><%= files[i].size %></strong>
+        </div>
+        <a href="<%= files[i].paths.miniature %>">
+            <img alt="<%= files[i].name %>" src="<%= files[i].paths.miniature %>" />
+        </a>
+    </div>
+</div>

@@ -1,47 +1,31 @@
 <!DOCTYPE html>
 <html>
-<% include head.ejs %>
+<% include parts/head.ejs %>
 <body>
-    <!--<img src="/images/b2.jpg" class="bg">-->
-    <div class="subtitle notification"></div>
+    <div class="topbar">
+        <h1 class="site-title">Picanoo</h1>
+    </div>
+    <div class="subtitle notification"><% if (!isnew) { %>
+        Let's your friends fullfill this album, send them the url!
+    <% } %></div>
     <div class="row text-center">
-
-        <div class="text-center cover">
-            <h1 class="subtitle">Congratulations, You have now
-                <span class="focus"> THE album of your
-                    <div class="rw-words rw-words-1">
-                        <span>event</span>
-                        <span>wedding</span>
-                        <span>week-end</span>
-                        <span>travel</span>
-                        <span>party</span>
-                        <span>diner</span>
-                    </div>
-                </span>
-            </h1>
-            <p class="center-block">
-                <button type="button" class="upload btn btn-primary btn-lg btn-primary">Upload your first pictures
-                <span class="uploadprogress btn btn-primary btn-lg btn-primary"></span>
-                </button>
-            </p>
-            <p  class="center-block">
-                <a href="#" class="cover-link">Read more</a>
-            </p>
-        </div>
+        <% if (isnew){ %>
+            <% include cover.ejs %>
+        <% } %>
         <% if (error != null){ %>
             <div class="warning center-block"><%= error %></div>
         <% } %>
         <div id="mygallery">
+            <% for(var i=0; i<files.length; i++) { %>
+
+                <% include file.ejs %>
+
+            <% } %>
         </div>
     </div>
 
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
-    <script src="/bower_components/dropzone/downloads/dropzone.min.js"></script>
-    <script src="/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
-    <script src="/bower_components/Justified-Gallery/dist/js/jquery.justifiedGallery.min.js"></script>
-    <script src="/bower_components/mustache/mustache.js"></script>
 
-    <script type="text/javascript" src="/js/dropzone.js"></script>
+    <% include parts/body-footer.ejs %>
 
 </body>
 </html>

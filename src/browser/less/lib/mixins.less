@@ -1,0 +1,6 @@
+.background-gradient(@start, @end) {
+    background: @start;
+    background-image: -moz-linear-gradient(bottom, @start 0%, @end 100%);
+    background-image: -webkit-linear-gradient(bottom, @start 0%, @end 100%);
+    background-image: linear-gradient(to top, @start 0%, @end 100%);
+}
