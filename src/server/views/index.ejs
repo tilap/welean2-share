@@ -61,7 +61,36 @@
 
     <div id="templatefiles">
         <script type="text/x-json">
-            <% files = [{name: "", size: "", paths: {miniature: "", slideshow: "", origin: ""}}] %>
+            <% files = [{
+                is_new: true,
+                name: "",
+                thumbnails: {
+                    miniature: {
+                        path:"",
+                        dir:'',
+                        size:{
+                            width:"",
+                            height:""
+                        }
+                    },
+                    origin: {
+                        path:"",
+                        dir:'',
+                        size:{
+                            width:"",
+                            height:""
+                        }
+                    },
+                    slideshow: {
+                        path:"",
+                        dir:'',
+                        size:{
+                            width:"",
+                            height:""
+                        }
+                    }
+                }
+            }] %>
             <% var i = 0 %>
             <% include file.ejs %>
         </script>

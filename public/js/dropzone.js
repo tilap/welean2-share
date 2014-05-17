@@ -37,11 +37,26 @@ myDropzone.on("uploadprogress", function(hop, percentage, bytes) {
     $(".uploadprogress").text(humanFileSize(bytes + sizeProgress) + " / " + humanFileSize(totalSize));
 });
 
+var current = 0;
 myDropzone.on("addedfile", function(file) {
     totalSize += file.size;
     console.log('total'+totalSize);
     $(".notification").html("Let's your friends fullfill this album, send them the url!");
     $(".home-cover").remove();
+    var imageloaded = new imagesLoaded( ".dz-processing img");
+    $(".dz-processing img").css('opacity', 0);
+    /*
+    imageloaded.on( 'done', function( instance ) {
+        console.log('DONE  - all images have been successfully loaded');
+        if (current != 0) {
+            clearTimeout(current);
+        }
+        current = setTimeout(function() {
+            $(".dz-processing img").css('opacity', 1);
+            initGrid();
+        }, 1000);
+    });
+*/
 });
 
 myDropzone.on('complete', function(file) {
