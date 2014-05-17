@@ -5,14 +5,22 @@ module.exports = function(req, res) {
 
     var albumFactory = new AlbumFactory(req.db);
 	var album = albumFactory.get(req.param('uuid')).then(function(album) {
+        var isNew = false;
+        var error = '';
+
 		if (album && album.files) {
             files = album.files;
 		} else {
             files = [];
-		}
-		res.render('index.ejs', {'files' : files, 'IMAGE_PATH': albumFactory.PUBLIC_PATH});
+            isNew = true;
+            log.info('Probably new album ' + req.param('uuid'));
+        }
+        res.render('index.ejs', {'files' : files, 'error':'', 'isNew':isNew, 'IMAGE_PATH': albumFactory.PUBLIC_PATH});
 
-	}).catch(log.error);
+	}).catch(function(){
+        log.warning('Unexisting album ' + req.param('uuid'));
+        res.render('index.ejs', {'files' : [], 'error':'Mauvais code !!', 'isNew': false, 'IMAGE_PATH': albumFactory.PUBLIC_PATH});
+    });
 }
 
 
