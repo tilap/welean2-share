@@ -1,35 +1,55 @@
 Dropzone.autoDiscover = false;
 
-        var myDropzone = new Dropzone(document.body, {
-            url: "./upload/",
-            clickable: '.upload'
-        });
+var totalSize = 0;
+var sizeProgress = 0;
 
-        var template = '<a href="{{{ url }}}"><img alt="{{{ url }}}" src="{{{ url }}}" /></a>';
+var params = {
+    url: "./upload/",
+    previewsContainer: "#mygallery",
+    thumbnailHeight: 300,
+    thumbnailWidth: 300
+};
+if ($(".upload").length) {
+    params.clickable = '.upload';
+} else {
+    params.clickable = false;
+}
+var myDropzone = new Dropzone(document.body, params);
 
-        myDropzone.on("success", function(file, response) {
-            var output = Mustache.render(template, {url : response.path});
-            //$('#mygallery').append(output);
-        });
+var template = '<a href="{{{ url }}}"><img alt="{{{ url }}}" src="{{{ url }}}" /></a>';
 
-        myDropzone.on("queuecomplete", function() {
-            //$("#mygallery").justifiedGallery();
-        });
+myDropzone.on("success", function(file, response) {
+    var output = Mustache.render(template, {url : response.path});
+    //$('#mygallery').append(output);
+});
 
-        myDropzone.on("uploadprogress", function(hop, percentage, bytes) {
-            $(".uploadprogress").show();
-            $(".uploadprogress").css("width", percentage + "%");
-            $(".uploadprogress").text(humanFileSize(bytes));
-            console.log('hop');
-            console.log(arguments);
-        });
+myDropzone.on("queuecomplete", function() {
+    //$("#mygallery").justifiedGallery();
+});
 
+myDropzone.on("uploadprogress", function(hop, percentage, bytes) {
+    $(".uploadprogress").show();
+    var current = Math.round(100 * ((bytes + sizeProgress) / totalSize));
+    console.log(current);
+    $(".uploadprogress").css("width", current + "%");
+    $(".uploadprogress").text(humanFileSize(bytes + sizeProgress) + " / " + humanFileSize(totalSize));
+});
 
-        $("#mygallery").justifiedGallery({
-            rowHeight : 300,
-            fixedHeight : true
-        });
+myDropzone.on("addedfile", function(file) {
+    totalSize += file.size;
+    console.log('total'+totalSize);
+});
 
+myDropzone.on('complete', function(file) {
+    sizeProgress += file.size;
+});
+/*
+$("#mygallery").justifiedGallery({
+    rowHeight : 300,
+    fixedHeight : true,
+    lastRow: 'nojustify'
+});
+*/
 
 
 function humanFileSize(bytes) {

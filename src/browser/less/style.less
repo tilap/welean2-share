@@ -1,11 +1,13 @@
 @import "base.less";
+@import "image-gallery.less";
+@import "title-animated";
 @textColor: #555;
 
-textarea:hover, 
-input:hover, 
-textarea:active, 
-input:active, 
-textarea:focus, 
+textarea:hover,
+input:hover,
+textarea:active,
+input:active,
+textarea:focus,
 input:focus,
 button:focus,
 button:active,
@@ -17,6 +19,7 @@ button:hover
 
 body, html {
     height: 100%;
+    margin-top: 20px;
 }
 
 body {
@@ -50,7 +53,7 @@ footer {
 	border-top: 2px solid @textColor;
 	color: @textColor;
 	text-decoration: none;
-	
+
 }
 
 
@@ -108,73 +111,12 @@ footer {
 	animation: rotateWord 18s linear infinite @delay;
 }
 
-h1 {
-
-	text-align: left;
-	font-family: Merriweather, Arial, sans-serif;
-	font-size: 30px;
-	color: @textColor;
-	margin: 130px 0px 80px 30%;
-	line-height: 80px;
-
-	> span {
-		font-size: 40px;
-		display: block;
-
-		span {
-			color: darken(@upload-color, 10%);
-		}
-	}
-
-	.rw-words{
-		width: 400px;
-		text-align:left;
-	    display: inline;
-	    text-indent: 10px;
-
-	    span{
-	    	.animation(0s);
-		    position: absolute;
-		    opacity: 0;
-		    overflow: hidden;
-		    width: 100%;
-
-		}
-
-		span:nth-child(2) { 
-		    .animation(15s); 
-		}
-
-		span:nth-child(3) { 
-		    .animation(3s); 
-		}
-
-		span:nth-child(4) { 
-		    .animation(6s); 
-		} 
-		span:nth-child(5) { 
-		    .animation(12s); 
-		}
-		span:nth-child(6) {  
-		    .animation(9s); 
-		}
-	}	
+.subtitle {
+    font-family: Merriweather, Arial, sans-serif;
+    font-size: 30px;
+    color: @textColor;
 }
 
-img.bg {
-  /* Set rules to fill background */
-  min-height: 100%;
-  min-width: 1024px;
-	
-  /* Set up proportionate scaling */
-  width: 100%;
-  height: auto;
-	
-  /* Set up positioning */
-  position: absolute;
-  top: 0;
-  left: 0;
-}
 
 @upload-color: #B0132B;
 @upload-progress: #269B3B;
@@ -201,6 +143,7 @@ img.bg {
 	border-bottom-right-radius: 0;
 	width: 70%;
 	color: white;
+	display: none;
 }
 
 .btn-primary:hover {
@@ -209,6 +152,6 @@ img.bg {
 }
 
 .dz-preview {
-	display: none;
+	/*display: none;*/
 }
 
