@@ -6,22 +6,22 @@
         <div class="row">
             <h1 class="site-title">Picanoo</h1>
             <% if (!isnew) { %>
-            <a href="<%= links.new_album %>">
-                <button type="button" class="btn btn-primary">
-                    <span class="glyphicon glyphicon-plus"></span> Créer un nouvel album
-                </button>
-            </a>
-            <a href="<%= links.download %>">
-                <button type="button" class="btn btn-success">
-                    <span class="glyphicon glyphicon-download-alt"></span> Télécharger cet album
-                </button>
-            </a>
+            <div class='header-buttons'>
+                <a href="<%= links.new_album %>">
+                    <span class="glyphicon glyphicon-folder-open"></span>
+                </a>
+                <a href="<%= links.download %>">
+                    <span class="glyphicon glyphicon-download-alt"></span>
+                </a>
+            </div>
             <% } %>
         </div>
     </div>
+    <!--
     <div class="subtitle notification"><% if (!isnew) { %>
         Let's your friends fullfill this album, send them the url!
     <% } %></div>
+    -->
     <div class="row text-center">
         <% if (isnew){ %>
             <% include cover.ejs %>
@@ -30,9 +30,24 @@
             <div class="warning center-block"><%= error %></div>
         <% } %>
         <div id="mygallery">
+            <% if(!isnew) { %>
+                <div class="thumbnail">
+                    <a href="#">
+                        <span class="glyphicon glyphicon-plus"></span>
+                    </a>
+                </div>
+            <% } %>
             <% for(var i=0; i<files.length; i++) { %>
 
                 <% include file.ejs %>
+
+                <% if (i == 1) { %>
+                <div class="thumbnail text">
+                    <p>
+                        Let's your friends fullfill this album, send them the url!
+                    </p>
+                </div>
+                <% } %>
 
             <% } %>
         </div>

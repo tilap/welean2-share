@@ -2540,15 +2540,14 @@ address {
 .dz-preview {
   /*display: none;*/
 }
-.dz-preview {
-  height: 300px;
-  float: left;
-  position: relative;
-}
 .dz-preview .dz-details .dz-filename {
+  display: none;
   position: absolute;
 }
 .dz-preview .dz-details .dz-size {
+  display: none;
+}
+.dz-preview .dz-details .dz-file {
   display: none;
 }
 .dz-preview .dz-details img {
@@ -2592,6 +2591,15 @@ address {
   font-family: 'Droid Sans', Arial, Helvetica, "Liberation Sans", FreeSans, sans-serif;
   font-size: 20px;
 }
+.header-buttons {
+  position: absolute;
+  right: 0px;
+  top: 10px;
+}
+.header-buttons span {
+  margin-right: 10px;
+  color: #333;
+}
 .home-cover {
   padding: 80px 0;
 }
@@ -2623,11 +2631,45 @@ address {
 }
 #mygallery {
   text-align: center;
+  margin: 20px 20px 0px 20px;
+}
+#mygallery .thumbnail {
+  display: inline-block;
+  height: 300px;
+  float: left;
+  position: relative;
+  margin: 3px;
+  /*margin: 0px 3px 20px 3px;*/
+}
+#mygallery .thumbnail span {
+  margin-top: 120px;
+  margin-left: 30px;
+  margin-right: 30px;
+  font-size: 30px;
+  color: #333;
+}
+#mygallery .thumbnail.text {
+  border: 7px solid transparent;
+  width: 300px;
+  line-height: 50px;
+  padding-top: 40px;
+  font-size: 30px;
 }
 #mygallery .dz-preview {
-  display: inline-block;
+  -moz-box-shadow: 0px 3px 5px 0px #c0c0c0;
+  -webkit-box-shadow: 0px 3px 5px 0px #c0c0c0;
+  -o-box-shadow: 0px 3px 5px 0px #c0c0c0;
+  box-shadow: 0px 3px 5px 0px #c0c0c0;
+  filter: progid:DXImageTransform.Microsoft.Shadow(color=#c0c0c0, Direction=180, Strength=5);
 }
-#mygallery .dz-preview a img {
+#mygallery .dz-preview :hover {
+  -moz-box-shadow: 0px 3px 5px 0px #aaa;
+  -webkit-box-shadow: 0px 3px 5px 0px #aaa;
+  -o-box-shadow: 0px 3px 5px 0px #aaa;
+  box-shadow: 0px 3px 5px 0px #aaa;
+  filter: progid:DXImageTransform.Microsoft.Shadow(color=#aaaaaa, Direction=180, Strength=5);
+}
+#mygallery .dz-preview img {
   padding: 6px;
   background: #fff;
   border: 1px solid #ccc;
