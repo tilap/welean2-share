@@ -9,8 +9,8 @@
                 <span class="glyphicon glyphicon-hand-up hand"></span> <i><%= __('Invitez vos amis à participer') %></i>
             </div>
             <h1 class="site-title">Picanoo</h1>
-            <% if (!isnew) { %>
-            <div class='header-buttons'>
+            <div class='header-buttons
+            <% if (isnew) { %>nodisplay<%}%>'>
                 <a title="<%= __('Créer un nouvel album') %>" href="<%= links.new_album %>">
                     <span class="glyphicon glyphicon-folder-open"></span>
                 </a>
@@ -21,7 +21,6 @@
                     <span class="glyphicon glyphicon-plus upload"></span>
                 </a>
             </div>
-            <% } %>
         </div>
         <div class="dz-progress allprogress"><span class="dz-upload" data-dz-uploadprogress></span></div>
     </div>
