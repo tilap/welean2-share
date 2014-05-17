@@ -37,6 +37,7 @@ app.use(function(req,res,next){
 * ROUTES
 ************/
 app.get('/:uuid/', require('./controllers/albumController.js'));
+app.get('/:uuid/archive', require('./controllers/archiveController.js'));
 app.get('/', require('./controllers/indexController.js'));
 app.post('/:uuid/upload/', require('./controllers/uploadController.js'));
 
