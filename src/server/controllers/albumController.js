@@ -28,17 +28,4 @@ module.exports = function(req, res) {
         log.warning('Unexisting album ' + req.param('uuid'));
         res.render('index.ejs', {'files' : [], 'error':'Mauvais code !!', 'links': links, 'isnew': false, 'IMAGE_PATH': albumFactory.PUBLIC_PATH});
     });
-}
-
-
-
-
-var Hashids = require('hashids'),
-hashids = new Hashids('Welean rocks!');
-
-var hash = hashids.encrypt(12345);
-//console.log(hash);
-// hash is now 'ryBo'
-
-var numbers = hashids.decrypt('ryBo');
-// numbers is now [ 12345 ]
+};
