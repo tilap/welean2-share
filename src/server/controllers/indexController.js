@@ -7,6 +7,9 @@ module.exports = function(req, res) {
 	albumFactory.create()
 	.then(function(album) {
 		res.redirect('/' + album._id + '/'); 
-	}).catch(log.error);
+	}).catch(function(err) {
+		log.error(err);
+		res.end();
+	});
 
 } 
