@@ -4,10 +4,10 @@ var AlbumFactory = require(config.serverDir + '/model/album/AlbumFactory');
 module.exports = function(req, res) {
 
     var albumFactory = new AlbumFactory(req.db);
-    var album = albumFactory.get(req.param('auid')).then(function(album) {
+    albumFactory.get(req.param('auid')).then(function(album) {
 
         if (album && album.files) {
-            albumFactory.deleteFile(album._id, req.param('iuid')).then(function() {
+            return albumFactory.deleteFile(album._id, req.param('iuid')).then(function() {
                 log.success('file deleted :)');
                 res.json(200, {});
             }).catch(function(err){
