@@ -1,3 +1,7 @@
+process.on('uncaughtException', function(err) {
+    console.error(err.stack);
+});
+
 var argv = require('minimist')(process.argv.slice(2));
 if (!argv.production) {
     console.log('Dev mode');
