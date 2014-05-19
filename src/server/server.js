@@ -1,4 +1,10 @@
-require('newrelic');
+var argv = require('minimist')(process.argv.slice(2));
+if (!argv.production) {
+    console.log('Dev mode');
+}else{
+    console.log('Production mode');
+    require('newrelic');
+}
 var express = require('express');
 var i18n = require("i18n");
 var cookieParser = require('cookie-parser');
@@ -66,6 +72,7 @@ app.get('/:auid/delete/:iuid/', require(config.serverDir + '/controllers/deleteI
 /***********
 * GOOOO
 ************/
-var server = app.listen(config.port, function() {
+var port = argv.port || config.port || 3000;
+var server = app.listen(port, function() {
     log.success('We are on ! Listening on port ' + server.address().port);
 });
