@@ -39,7 +39,7 @@ module.exports = function(req, res) {
             }).catch(function(err){
                 res.writeHead(500, {'Content-Type': 'text/plain'});
                 res.end(res.__('Un problème technique est survenu'));
-                throw err;
+                console.log(err);
             });
 
         } catch(err) {
