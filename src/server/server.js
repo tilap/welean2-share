@@ -21,6 +21,9 @@ global.log = require(config.serverDir + '/utils/psrConsole');
 /* log config */
 log.info('Loaded configuration file : ', config);
 
+var compressProcesses = require(config.serverDir + '/utils/compressProcesses');
+
+
 /***********
 * DB
 ************/
@@ -29,6 +32,7 @@ MongoClient.connect("mongodb://localhost:27017/share", function(err, dbMongo) {
   if(!err) {
     log.success("We are connected");
     db = dbMongo;
+    compressProcesses.db = db;
   } else {
       log.error('Unable to connect to mongodb !', err);
   }
@@ -62,6 +66,8 @@ app.use(function(req,res,next){
     req.db = db;
     next();
 });
+
+
 
 /***********
 * ROUTES

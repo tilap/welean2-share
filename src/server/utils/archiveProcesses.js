@@ -47,7 +47,7 @@ module.exports = {
                         log.warning('Exiting checkStart without treatment - after nextTick');
                     }
                 }.bind(this));
-            }, 1000);
+            }.bind(this), 1000);
         }else{
             log.warning('Exiting checkStart without treatment - before nextTick');
         }

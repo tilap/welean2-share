@@ -15,7 +15,7 @@ module.exports = {
 	},
 
 	error: function(message, object) {
-		this.log(message, object, 'red', '_ERROR_');
+		this.log(message.stack || message.message || message, object, 'red', '_ERROR_');
 	},
 
 	warning: function(message, object) {

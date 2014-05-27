@@ -52,15 +52,16 @@ module.exports.prototype = {
 
 	addFile : function (_id, file) {
 
-		return this._treatFile(file, _id).then(function(file) {
+		return this._copyFile(file, _id).then(function(file) {
             return new Promise(function(resolve, reject) {
-                log.info('treatFile finnished', file);
+                log.info('treatFile finished' + file);
                 this.db.collection('albumcollection').update({_id: new ObjectId(_id)}, {$push: {files:file}}, function(err, result) {
                     if (err) {
                         log.error('add file failed', err);
                         return reject(err);
                     }
                     resolve(file);
+                    this._compressFile(_id, file);
                     this._makeArchive(_id);
                 }.bind(this));
             }.bind(this));
@@ -68,6 +69,21 @@ module.exports.prototype = {
         .catch(log.error);
 
 	},
+
+    updateFile : function(_id, file){
+        return new Promise(function(resolve, reject) {
+            log.info('updating file ' + file.id + ' from album ' + _id, file);
+            this.db.collection('albumcollection').update({_id: new ObjectId(_id), "files.id": file.id}, {$set: {"files.$" : file}}, function(err, result) {
+                if (err) {
+                    log.error('delete file failed', err);
+                    return reject(err);
+                }
+                log.success('successfully updated file ' + file.id + ' from album ' + _id);
+                return resolve();
+            }.bind(this));
+        }.bind(this))
+        .catch(log.error.bind(log));
+    },
 
     deleteFile : function (_id, fileId) {
 
@@ -85,7 +101,7 @@ module.exports.prototype = {
             .catch(log.error);
     },
 
-	_treatFile : function (file, albumId) {
+	_copyFile : function (file, albumId) {
         // Create uuid
         var uuidGenerator = require('node-uuid');
         var uuid = uuidGenerator.v4();
@@ -135,80 +151,23 @@ module.exports.prototype = {
 
                 delete file;
 
-                resolve();
+                return resolve(image);
             }.bind(this));
-        }.bind(this)).then(function() {
-            // compress image
-            var gm = require("gm").subClass({ imageMagick: true });
-
-            return Promise.all([
-                new Promise(function(resolve, reject) {
-                    // miniature
-                    gm(image.thumbnails.origin.dir)
-                    .autoOrient()
-                    .resize(null, 300)
-                    .gravity('Center')
-                    //.extent(null, 300)
-                    .write(image.thumbnails.miniature.dir, function(err) {
-                        if (err) {
-                            reject(err);
-                            log.error('error for mini', err);
-                            return;
-                        }
-                        log.info ("writing : " + image.thumbnails.miniature.dir);
-
-                        // size
-                        gm(image.thumbnails.miniature.dir).size(function(err, val) {
-                            image.thumbnails.miniature.size = val;
-                            log.info('size', val);
-                            resolve();
-                        })
-                    }.bind(this))
-                }.bind(this)),
-
-                new Promise(function(resolve, reject) {
-                    // size of image
-                    gm(image.thumbnails.origin.dir).size(function(err, val) {
-                        image.thumbnails.origin.size = val;
-                        log.info('size', val);
-                        resolve();
-                    })
-                }.bind(this)),
-
-                new Promise(function(resolve, reject) {
-                    // slideshow
-                    gm(image.thumbnails.origin.dir)
-                    .autoOrient()
-                    .resize(null, 1000 + '>')
-                    .write(image.thumbnails.slideshow.dir, function(err) {
-                        if (err) {
-                            reject(err);
-                            log.error('error for slideshow', err);
-                            return;
-                        }
-                        log.info ("writing : " + image.thumbnails.slideshow.dir);
-                        // size
-                        gm(image.thumbnails.slideshow.dir).size(function(err, val) {
-                            image.thumbnails.slideshow.size = val;
-                            log.info('size', val);
-                            resolve();
-                        })
-                    }.bind(this))
-                }.bind(this))
-            ]);
-        }.bind(this))
-        .then(function() {
-            return image;
-        });
+        }.bind(this));
 
 	},
 
     _makeArchive : function (_id) {
         process.nextTick(function(){
-            log.info("bah je passe !");
-            //@todo manage require / app path
             var archiver = require(config.serverDir + '/utils/archiveProcesses.js').addAlbum(_id);
         });
+    },
+
+    _compressFile : function (_id, file) {
+        process.nextTick(function(){
+            var compressor = require(config.serverDir + '/utils/compressProcesses.js').addImage(_id, file);
+        });
     }
+
 
 }
