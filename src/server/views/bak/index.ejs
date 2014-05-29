@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+<% include parts/head.ejs %>
+<body>
+    <div class='notifications top-right'></div>
+    <div class="topbar">
+        <div class="row">
+            <div class="header-share">
+                <span class="glyphicon glyphicon-hand-up hand"></span> <i><%= __('Invitez vos amis à participer') %></i>
+            </div>
+            <h1 class="site-title">Picanoo</h1>
+            <div class='header-buttons
+            <% if (isnew) { %>nodisplay<%}%>'>
+                <a title="<%= __('Créer un nouvel album') %>" href="<%= links.new_album %>">
+                    <span class="glyphicon glyphicon-folder-open"></span>
+                </a>
+                <a title="<%= __('Télécharger cet album') %>" href="<%= links.download %>">
+                    <span class="glyphicon glyphicon-download-alt"></span>
+                </a>
+                <a title="<%= __('Ajouter des photos à cet album') %>">
+                    <span class="glyphicon glyphicon-plus upload"></span>
+                </a>
+            </div>
+        </div>
+        <div class="dz-progress allprogress"><span class="dz-upload" data-dz-uploadprogress></span></div>
+    </div>
+
+    <!--
+    <div class="subtitle notification"><% if (!isnew) { %>
+        Let's your friends fullfill this album, send them the url!
+    <% } %></div>
+    -->
+    <div class="row text-center">
+        <% if (isnew){ %>
+            <% include cover.ejs %>
+        <% } %>
+        <% if (error != null){ %>
+            <div class="warning center-block"><%= error %></div>
+        <% } %>
+        <div id="mygallery">
+            <% for(var i=0; i<files.length; i++) { %>
+
+                <% include file.ejs %>
+
+            <% } %>
+            <!--
+            <% if(!isnew) { %>
+                <div class="thumbnail text upload">
+                    <a href="#">
+                        <span class="glyphicon glyphicon-plus"></span>
+                    </a>
+                </div>
+            <% } %>
+            -->
+        </div>
+    </div>
+
+    <div id="templatefiles">
+        <script type="text/x-json">
+            <% files = [{
+                is_new: true,
+                name: "",
+                thumbnails: {
+                    miniature: {
+                        path:"",
+                        dir:'',
+                        size:{
+                            width:"",
+                            height:""
+                        }
+                    },
+                    origin: {
+                        path:"",
+                        dir:'',
+                        size:{
+                            width:"",
+                            height:""
+                        }
+                    },
+                    slideshow: {
+                        path:"",
+                        dir:'',
+                        size:{
+                            width:"",
+                            height:""
+                        }
+                    }
+                }
+            }] %>
+            <% var i = 0 %>
+            <% include file.ejs %>
+        </script>
+    </div>
+
+
+    <% include parts/body-footer.ejs %>
+</body>
+</html>

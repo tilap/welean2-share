@@ -2648,9 +2648,6 @@ address {
 .dz-preview .dz-details .dz-file {
   display: none;
 }
-.dz-preview .dz-details img {
-  height: 300px;
-}
 .dz-preview .dz-success-mark {
   display: none;
 }
@@ -2822,10 +2819,9 @@ address {
 }
 #mygallery .thumbnail {
   display: inline-block;
-  height: 300px;
   float: left;
   position: relative;
-  /*margin: 0px 3px 20px 3px;*/
+  margin: 3px;
 }
 #mygallery .thumbnail span {
   margin-top: 80px;
@@ -2882,10 +2878,6 @@ address {
 }
 .mygallery:after {
   clear: both;
-}
-.thumbnail {
-  float: left;
-  margin-bottom: 10px;
 }
 .thumbnail img {
   max-width: 100%;

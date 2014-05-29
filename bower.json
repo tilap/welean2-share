@@ -8,6 +8,10 @@
     "mustache": "~0.8.1",
     "fancybox": "2.1.*",
     "rowGrid": "https://github.com/brunjo/rowGrid.js.git",
-    "imagesloaded": "~3.1.5"
+    "imagesloaded": "~3.1.5",
+    "angularjs": "*",
+    "angular": "~1.2.16",
+    "underscore": "~1.6.0",
+    "dropzone-rowgrid-angular": "git@github.com:farf/dropzone-rowgrid-angular.git"
   }
 }
