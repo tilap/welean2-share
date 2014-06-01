@@ -3,36 +3,14 @@
 <% include parts/head.ejs %>
 <body ng-app="picanoo" ng-controller="AppCtrl as app">
     <div class='notifications top-right'></div>
-    <div class="topbar">
-        <div class="row">
-            <div class="header-share">
-                <span class="glyphicon glyphicon-hand-up hand"></span> <i><%= __('Invitez vos amis à participer') %></i>
-            </div>
-            <h1 class="site-title">Picanoo</h1>
-            <div class='header-buttons'>
-                <a title="<%= __('Créer un nouvel album') %>" href="<%= data.links.new_album %>">
-                    <span class="glyphicon glyphicon-folder-open"></span>
-                </a>
-                <a title="<%= __('Télécharger cet album') %>" href="<%= data.links.download %>">
-                    <span class="glyphicon glyphicon-download-alt"></span>
-                </a>
-                <a title="<%= __('Ajouter des photos à cet album') %>">
-                    <span class="glyphicon glyphicon-plus upload"></span>
-                </a>
-            </div>
-        </div>
-        <div class="dz-progress allprogress">
-            <span class="dz-upload" data-dz-uploadprogress></span>
-        </div>
-    </div>
-    <div class="row text-center">
+    <% include parts/topbar.ejs %>
+    <div class="row text-center" p-dropzone thumbnail="thumbnail(file, dataUrl)" added="added(file)" files="files">
         <div ng-if="isnew">
-            <% include cover.ejs %>
+            <% include parts/home.ejs %>
         </div>
         <div class="warning center-block" ng-if="error==false"><%= data.error %></div>
-        <div id="mygallery"  ng-justify-div>
+        <div id="mygallery"  ng-justify-div p-slideshow>
             <div p-media ng-repeat="media in medias" media="media">
-
             </div>
         </div>
     </div>
@@ -40,15 +18,17 @@
             <%- JSON.stringify(data) %>
         </script>
     </body>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+    <script src="/bower_components/jquery/dist/jquery.min.js"></script>
     <script src="/bower_components/angular/angular.min.js"></script>
     <script src="/bower_components/dropzone/downloads/dropzone.min.js"></script>
     <!-- <script type="text/javascript" src="vendors/linear-partition/dist/linear_partition.js"></script> -->
     <script type="text/javascript" src="/bower_components/underscore/underscore.js"></script>
 
 <script type="text/javascript" src="/js/main.js"></script>
+<script type="text/javascript" src="/js/pDropzone.js"></script>
 <script src="/bower_components/dropzone-rowgrid-angular/public/js/linearpartition.js"></script>
 <script src="/bower_components/dropzone-rowgrid-angular/public/js/justifydiv.js"></script>
+<script src="/bower_components/fancybox/source/jquery.fancybox.js"></script>
 <!--    <script type="text/javascript" src="js/linearpartition.js"></script>-->
 </html>
 

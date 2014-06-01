@@ -1,0 +1,22 @@
+<div class="topbar">
+    <div class="row">
+        <div class="header-share">
+            <span class="glyphicon glyphicon-hand-up hand"></span> <i><%= __('Invitez vos amis à participer') %></i>
+        </div>
+        <h1 class="site-title">Picanoo</h1>
+        <div class='header-buttons'>
+            <a title="<%= __('Créer un nouvel album') %>" href="<%= data.links.new_album %>">
+                <span class="glyphicon glyphicon-folder-open"></span>
+            </a>
+            <a title="<%= __('Télécharger cet album') %>" href="<%= data.links.download %>">
+                <span class="glyphicon glyphicon-download-alt"></span>
+            </a>
+            <a title="<%= __('Ajouter des photos à cet album') %>">
+                <span class="glyphicon glyphicon-plus upload"></span>
+            </a>
+        </div>
+    </div>
+    <div class="dz-progress allprogress">
+        <span class="dz-upload" data-dz-uploadprogress></span>
+    </div>
+</div>
