@@ -4,6 +4,7 @@ app.controller("AppCtrl", ['$scope', function($scope) {
     $scope.medias = [];
     $scope.files = [];
     $scope.isnew = true;
+    $scope.progress = 0;
 
     $scope.setData  = function(data) {
         console.log(data);
@@ -15,24 +16,12 @@ app.controller("AppCtrl", ['$scope', function($scope) {
 
 
     $scope.thumbnail = function(file, dataUrl) {
-        console.log('thumbnail');
-        console.log(arguments);
     }
 
     $scope.added = function(file) {
-        $scope.medias.push({hello: 'test'
-
-        });
-        $scope.$apply();
-        console.log($scope.medias);
-        console.log('added');
-        console.log(arguments);
     }.bind(this);
-
-    for (var i = 0; i < 6 ; i++) {
-        $scope.medias.push({id: i, height: 100, width: Math.round(Math.random()*300)});
-    }
     var app = this;
+
 }]);
 
 app.directive('medias', function() {
@@ -50,22 +39,18 @@ app.directive('medias', function() {
 
 app.directive('pMedia', function() {
     return {
-      template: '<div class="dj-child-container dz-preview thumbnail dz-image-preview ">\
-    <div class="dz-details">\
-        <div class="dz-filename">\
-            <span data-dz-name>{{media.name}}</span>\
-        </div>\
-        <a  rel="slideshow" href="{{media.thumbnails.slideshow.path}}">\
-            <img class="dj-child" width="{{media.thumbnails.miniature.size.width}}" \
-            height="{{media.thumbnails.miniature.size.height}}" data-dz-thumbnail \
-            alt="{{media.name}}" src="{{media.thumbnails.miniature.path}}" />\
-        </a>\
-    </div>\
-    <div class="dz-progress" data-dz-uploadprogress><span class="dz-upload"></span></div>\
-</div>',
-      scope: {
+        template: '\
+            <div class="dj-child-container thumbnail">\
+                <a  rel="slideshow" href="{{media.thumbnails.slideshow.path}}">\
+                    <img class="dj-child" data-width="{{media.thumbnails.miniature.size.width}}" \
+                    data-height="{{media.thumbnails.miniature.size.height}}" data-dz-thumbnail \
+                    alt="{{media.name}}" src="{{media.thumbnails.miniature.path}}" style="width:{{media.thumbnails.miniature.size.width}}px; height:{{media.thumbnails.miniature.size.height}}px;" />\
+                </a>\
+                <div class="dz-progress" data-dz-uploadprogress style="width:{{media.upload.progress}}%"><span class="dz-upload"></span></div>\
+            </div>',
+        scope: {
         media: '='
-      },
+        },
     };
 });
 

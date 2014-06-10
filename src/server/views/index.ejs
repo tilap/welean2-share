@@ -4,8 +4,8 @@
 <body ng-app="picanoo" ng-controller="AppCtrl as app">
     <div class='notifications top-right'></div>
     <% include parts/topbar.ejs %>
-    <div class="row text-center" p-dropzone thumbnail="thumbnail(file, dataUrl)" added="added(file)" files="files">
-        <div ng-if="isnew">
+    <div class="row text-center" p-dropzone thumbnail="thumbnail(file, dataUrl)" added="added(file)" files="medias" progress='progress'>
+        <div ng-if="medias.length == 0">
             <% include parts/home.ejs %>
         </div>
         <div class="warning center-block" ng-if="error==false"><%= data.error %></div>
@@ -20,7 +20,7 @@
     </body>
     <script src="/bower_components/jquery/dist/jquery.min.js"></script>
     <script src="/bower_components/angular/angular.min.js"></script>
-    <script src="/bower_components/dropzone/downloads/dropzone.min.js"></script>
+    <script src="/bower_components/dropzone/downloads/dropzone.js"></script>
     <!-- <script type="text/javascript" src="vendors/linear-partition/dist/linear_partition.js"></script> -->
     <script type="text/javascript" src="/bower_components/underscore/underscore.js"></script>
 

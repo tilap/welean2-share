@@ -16,7 +16,6 @@
             </a>
         </div>
     </div>
-    <div class="dz-progress allprogress">
-        <span class="dz-upload" data-dz-uploadprogress></span>
+    <div ng-if="progress != 100" class="dz-progress allprogress" style="width:{{progress}}%;">
     </div>
 </div>

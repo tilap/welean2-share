@@ -3,50 +3,76 @@ app.directive('pDropzone', function() {
     Dropzone.autoDiscover = false;
     return {
         restrict: 'A',
-        require: '?ngModel',
         link: function(scope, el, attrs) {
-            $(el).dropzone({
+            console.log('scope.files');
+            console.log(scope.files);
+
+            scope.$watch('files', function(newValue, oldValue) {
+                console.log('watch files');
+                console.log(oldValue);
+                console.log(newValue);
+                if (this.dropzone) {
+                    this.dropzone.files = scope.files;
+                }
+            }.bind(this));
+
+            this.dropzone = new Dropzone(el[0], {
                 url: './upload/',
                 thumbnailHeight: 300,
+                thumbnailWidth: null,
                 init: function() {
-                    this.on('success', function(file, json) {
-                    });
-                    this.on('addedfile', function(file) {
-                        console.log(arguments);
-                        //scope.thumbnail(arguments);
-                        /*
-                        scope.$apply(function(){
-                            scope.medias.push({file: 'added'});
-                        });
-                        */
-                    });
-                    this.on('thumbnail', function(file) {
-                        return false;
-                    });
-                    scope.files = this.files;
+
+                    this.files = scope.files;
 
                 },
+
                 success: function(err, result) {
                 },
+
                 thumbnail: function(file, dataUrl) {
                     scope.thumbnail({file: file, dataUrl: dataUrl});
+                    file.thumbnails = {
+                        miniature: {
+                            path: dataUrl,
+                            size: {
+                                width: file.width,
+                                height: file.height
+                            }
+                        }
+                    };
+                    scope.$apply();
                 },
+
                 addedfile: function(file) {
                     scope.added({file: file});
-                    scope.files = this.files;
                     console.log("this.files");
                     console.log(this.files);
+                    console.log("scope.files");
+                    console.log(scope.files);
                 },
+
+                uploadprogress: function(file, total) {
+                    console.log('total');
+                    console.log(file.upload.progress);
+                    scope.$apply();
+                },
+
+                totaluploadprogress: function(total, totalBytes, totalBytesSent) {
+                    scope.progress = total;
+                    scope.$apply();
+                },
+
                 clickable: '.upload'
             });
-        },
+        }.bind(this),
         scope: {
 
             // Files
             files: '=',
             // Event
             thumbnail: '&',
-            added: '&'
+            added: '&',
+            progress: '='
 
 
         }
