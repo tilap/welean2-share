@@ -20,6 +20,7 @@ app.directive('pDropzone', function() {
                 url: './upload/',
                 thumbnailHeight: 300,
                 thumbnailWidth: null,
+                autoQueue: false,
                 init: function() {
 
                     this.files = scope.files;
@@ -45,10 +46,15 @@ app.directive('pDropzone', function() {
 
                 addedfile: function(file) {
                     scope.added({file: file});
-                    console.log("this.files");
-                    console.log(this.files);
-                    console.log("scope.files");
-                    console.log(scope.files);
+                    console.log('added file:');
+                    console.log(file);
+                    var extensionId = "boknicagoipdeompcgnhjdalnbenclik";
+                    chrome.runtime.sendMessage(extensionId, { message: "version" },
+                        function (reply) {
+
+                                alert(reply);
+                        }
+                    );
                 },
 
                 uploadprogress: function(file, total) {
