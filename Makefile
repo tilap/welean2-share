@@ -3,8 +3,8 @@ install:
 	bower install
 
 update:
-	npm update
-	bower update
+	npm prune && npm update
+	bower prune && bower update
 
 clean:
 	rm -rf node_modules
